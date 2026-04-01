@@ -8,7 +8,14 @@
 body{background: linear-gradient(270deg,#02040a,#071a2f,#02040a);background-size:600% 600%;animation:bg 12s ease infinite;color:white;padding-top: 80px;}
 @keyframes bg{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 nav{display:flex;justify-content:space-between;align-items:center;padding:18px 40px;background:rgba(0,0,0,0.6);backdrop-filter:blur(8px);position:fixed;width:100%;top:0;z-index:100;}
-nav h1{font-family:Orbitron;color:#00f7ff;}
+nav .logo{
+  font-family:Orbitron;
+  color:#00f7ff;
+  font-size: 2em;
+  font-weight: bold;
+  text-decoration: none;
+  margin-left: 0;
+}
 nav a{color:white;margin-left:20px;text-decoration:none;font-weight:600;transition:color 0.3s ease;}
 nav a:hover{color:#00f7ff;}
 .section{padding:40px;width:80%;max-width:1400px;margin: 0 auto;text-align:center;}
@@ -22,16 +29,41 @@ textarea:focus{outline:none;box-shadow:0 0 15px rgba(0, 247, 255, 0.5);}
 .results-box h3{font-family:Orbitron;margin-bottom:15px;}
 .results-box ul{list-style-type:none;padding-left:0;}
 .results-box li{background:rgba(255,255,255,0.08);padding:10px;border-radius:5px;margin-bottom:8px;border-left:3px solid #ef4444;}
+
+.nav-group {
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px;
+  }
+  .nav-group {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px 15px;
+  }
+  nav a {
+    margin-left: 0;
+  }
+}
 </style>
 </head>
 <body>
 
 <nav>
-<h1>CyberShield</h1>
-<div>
-<a href="index.html">Home</a>
-<a href="learn.html">Learn</a>
-<a href="threats.html">Threats</a>
+<div class="nav-group">
+  <a href="index.html" class="logo">CyberShield</a>
+  <a href="phishing.html">Phishing</a>
+  <a href="malware.html">Malware</a>
+  <a href="passwords.html">Passwords</a>
+</div>
+<div class="nav-group">
+  <a href="tools.html">Tools</a>
+  <a href="threats.html">Threats</a>
 </div>
 </nav>
 

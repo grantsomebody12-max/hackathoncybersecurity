@@ -38,9 +38,13 @@ top:0;
 z-index:100;
 }
 
-nav h1{
+nav .logo{
 font-family:Orbitron;
 color:#00f7ff;
+font-size: 2em;
+font-weight: bold;
+text-decoration: none;
+margin-left: 0;
 }
 
 nav a{
@@ -119,23 +123,48 @@ display: inline-block;
 transform:translateY(-3px) scale(1.05);
 box-shadow:0 10px 20px rgba(0, 247, 255, 0.4);
 }
+
+.nav-group {
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px;
+  }
+  .nav-group {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px 15px;
+  }
+  nav a {
+    margin-left: 0;
+  }
+}
 </style>
 </head>
 <body>
 
 <nav>
-<h1>CyberShield</h1>
-<div>
-<a href="index.html">Home</a>
-<a href="tools.html">Tools</a>
-<a href="threats.html">Threats</a>
+<div class="nav-group">
+  <a href="index.html" class="logo">CyberShield</a>
+  <a href="phishing.html">Phishing</a>
+  <a href="malware.html">Malware</a>
+  <a href="passwords.html">Passwords</a>
+</div>
+<div class="nav-group">
+  <a href="tools.html">Tools</a>
+  <a href="threats.html">Threats</a>
 </div>
 </nav>
 
 <section class="section">
 
 <div style="text-align: left; margin-bottom: 20px;">
-<a href="index.html" class="cta" style="margin-top: 0;">&larr; Back to Home</a>
+<a href="index.html" onclick="if(window.history.length > 1 && document.referrer.includes(window.location.host)) { history.back(); return false; }" class="cta" style="margin-top: 0;">&larr; Go Back</a>
 </div>
 
 <h2>Learn Cybersecurity Basics</h2>

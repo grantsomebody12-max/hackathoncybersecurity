@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Learn | CyberShield</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Inter,sans-serif;
+}
+
+body{
+background: linear-gradient(270deg,#02040a,#071a2f,#02040a);
+background-size:600% 600%;
+animation:bg 12s ease infinite;
+color:white;
+padding-top: 80px; /* To offset the fixed nav */
+}
+
+@keyframes bg{
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
+}
+
+nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:18px 40px;
+background:rgba(0,0,0,0.6);
+backdrop-filter:blur(8px);
+position:fixed;
+width:100%;
+top:0;
+z-index:100;
+}
+
+nav h1{
+font-family:Orbitron;
+color:#00f7ff;
+}
+
+nav a{
+color:white;
+margin-left:20px;
+text-decoration:none;
+font-weight:600;
+transition:color 0.3s ease;
+}
+
+nav a:hover{
+color:#00f7ff;
+}
+
+.section{
+padding:40px;
+max-width:1200px;
+margin: 0 auto;
+}
+
+.section h2{
+font-size:2.5rem;
+margin-bottom:40px;
+text-align:center;
+font-family:Orbitron;
+color:#00f7ff;
+}
+
+.cards{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:30px;
+}
+
+.card{
+background:rgba(255,255,255,0.05);
+padding:30px;
+border-radius:20px;
+transition:0.3s;
+border: 1px solid rgba(255,255,255,0.1);
+cursor:pointer;
+}
+
+.card:hover{
+transform:translateY(-8px);
+box-shadow:0 0 20px #00f7ff;
+border-color: #00f7ff;
+}
+
+.card h3{
+font-size:1.5rem;
+margin-bottom:15px;
+font-family:Orbitron;
+color:#00f7ff;
+}
+
+.card p{
+font-size:1.1rem;
+line-height:1.6;
+opacity:0.8;
+}
+
+.cta{
+margin-top:30px;
+padding:14px 28px;
+background:#00f7ff;
+color:black;
+border-radius:30px;
+text-decoration:none;
+font-weight:bold;
+transition:all 0.3s ease;
+display: inline-block;
+}
+
+.cta:hover{
+transform:translateY(-3px) scale(1.05);
+box-shadow:0 10px 20px rgba(0, 247, 255, 0.4);
+}
+</style>
+</head>
+<body>
+
+<nav>
+<h1>CyberShield</h1>
+<div>
+<a href="index.html">Home</a>
+<a href="tools.html">Tools</a>
+<a href="threats.html">Threats</a>
+</div>
+</nav>
+
+<section class="section">
+
+<div style="text-align: left; margin-bottom: 20px;">
+<a href="index.html" class="cta" style="margin-top: 0;">&larr; Back to Home</a>
+</div>
+
+<h2>Learn Cybersecurity Basics</h2>
+
+<div class="cards">
+
+<div class="card" onclick="window.location.href='phishing.html'">
+<h3>Phishing</h3>
+<p>Fake emails and websites designed to steal your information. Always check the sender's address and be wary of links that ask for your login credentials or personal data.</p>
+</div>
+
+<div class="card" onclick="window.location.href='malware.html'">
+<h3>Malware</h3>
+<p>Malicious software that can spy on or damage your device. This includes viruses, spyware, and ransomware. Avoid downloading files from untrusted sources.</p>
+</div>
+
+<div class="card" onclick="window.location.href='passwords.html'">
+<h3>Passwords</h3>
+<p>Strong passwords are your first line of defense. Use a mix of upper/lowercase letters, numbers, and symbols. Consider a password manager to create and store unique, complex passwords for every site.</p>
+</div>
+
+</div>
+
+</section>
+
+</body>
+</html>

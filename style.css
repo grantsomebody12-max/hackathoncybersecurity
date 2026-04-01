@@ -1,0 +1,119 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  color: white;
+  overflow-x: hidden;
+}
+
+/* animated gradient background */
+.background {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(270deg, #0f172a, #1e293b, #020617);
+  background-size: 600% 600%;
+  animation: gradientMove 15s ease infinite;
+  z-index: -1;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% }
+  50% { background-position: 100% }
+  100% { background-position: 0% }
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 50px;
+  backdrop-filter: blur(12px);
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.links a {
+  margin-left: 30px;
+  text-decoration: none;
+  color: white;
+  position: relative;
+}
+
+.links a::after {
+  content: "";
+  position: absolute;
+  height: 2px;
+  width: 0;
+  background: #22c55e;
+  bottom: -4px;
+  left: 0;
+  transition: 0.3s;
+}
+
+.links a:hover::after {
+  width: 100%;
+}
+
+.hero {
+  text-align: center;
+  margin-top: 120px;
+}
+
+.hero h1 {
+  font-size: 64px;
+  margin-bottom: 10px;
+}
+
+.buttons {
+  margin-top: 20px;
+}
+
+.btn {
+  padding: 14px 24px;
+  border-radius: 30px;
+  margin: 10px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.primary {
+  background: #22c55e;
+  color: black;
+}
+
+.secondary {
+  border: 1px solid white;
+}
+
+.btn:hover {
+  transform: scale(1.08);
+}
+
+.features {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 120px;
+  padding: 40px;
+}
+
+.glass-card {
+  width: 260px;
+  padding: 30px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(15px);
+  transition: 0.4s;
+}
+
+.glass-card:hover {
+  transform: translateY(-15px);
+}
+
+footer {
+  text-align: center;
+  padding: 40px;
+  margin-top: 80px;
+}

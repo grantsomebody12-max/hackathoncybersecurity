@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CyberShield | Stay Safe Online</title>
+<meta name="description" content="CyberShield helps you understand online threats, learn safe habits, and use powerful tools to stay secure.">
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Inter,sans-serif;
+}
+
+body{
+background: linear-gradient(270deg,#02040a,#071a2f,#02040a);
+background-size:600% 600%;
+animation:bg 12s ease infinite;
+color:white;
+}
+
+@keyframes bg{
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
+}
+
+@keyframes fadeIn{
+0%{opacity:0; transform:translateY(20px);}
+100%{opacity:1; transform:translateY(0);}
+}
+
+nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:18px 40px;
+background:rgba(0,0,0,0.6);
+backdrop-filter:blur(8px);
+position:fixed;
+width:100%;
+top:0;
+z-index:100;
+}
+
+nav h1{
+font-family:Orbitron;
+color:#00f7ff;
+}
+
+nav a{
+color:white;
+margin-left:20px;
+text-decoration:none;
+font-weight:600;
+transition:color 0.3s ease;
+}
+
+nav a:hover{
+color:#00f7ff;
+}
+
+.hero{
+min-height:50vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:100px 20px 20px;
+}
+
+.hero h2{
+font-size:6rem;
+font-family:Orbitron;
+color:#00f7ff;
+animation:fadeIn 1s ease-out;
+}
+
+.hero p{
+font-size:1.25rem;
+max-width:600px;
+margin-top:10px;
+opacity:0.8;
+animation:fadeIn 1s ease-out 0.3s both;
+}
+
+.cta{
+margin-top:30px;
+padding:14px 28px;
+background:#00f7ff;
+color:black;
+border-radius:30px;
+text-decoration:none;
+font-weight:bold;
+transition:all 0.3s ease;
+animation:fadeIn 1s ease-out 0.6s both;
+}
+
+.cta:hover{
+transform:translateY(-3px) scale(1.05);
+box-shadow:0 10px 20px rgba(0, 247, 255, 0.4);
+}
+
+.section{
+padding:40px 40px;
+text-align:center;
+}
+
+.section h2{
+font-size:2.5rem;
+margin-bottom:30px;
+}
+
+.cards{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:30px;
+margin-top:20px;
+}
+
+.card{
+background:rgba(255,255,255,0.05);
+padding:30px;
+border-radius:20px;
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-8px);
+box-shadow:0 0 20px #00f7ff;
+}
+
+.card h3{
+font-size:1.5rem;
+margin-bottom:15px;
+}
+
+.card p{
+font-size:1.1rem;
+line-height:1.6;
+}
+
+.password-tool{
+background:rgba(255,255,255,0.05);
+border:1px solid rgba(0, 247, 255, 0.3);
+border-radius:20px;
+padding:40px;
+max-width:600px;
+margin:40px auto 0;
+text-align:center;
+box-shadow:0 10px 30px rgba(0,0,0,0.5);
+}
+
+.password-tool h3{
+font-family:Orbitron;
+color:#00f7ff;
+margin-bottom:10px;
+font-size:1.8rem;
+}
+
+.password-input{
+width:100%;
+padding:15px;
+border-radius:10px;
+border:1px solid #00f7ff;
+background:rgba(0,0,0,0.5);
+color:white;
+font-size:1.1rem;
+margin:20px 0;
+outline:none;
+transition:box-shadow 0.3s ease;
+}
+
+.password-input:focus{
+box-shadow:0 0 15px rgba(0, 247, 255, 0.5);
+}
+
+.password-results p{
+font-size:1.2rem;
+margin:10px 0;
+}
+
+.password-results span{
+font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+<h1>CyberShield</h1>
+<div>
+<a href="learn.html">Learn</a>
+<a href="tools.html">Tools</a>
+<a href="threats.html">Threats</a>
+</div>
+</nav>
+
+<section class="hero">
+<h2>Protect Your Digital Life</h2>
+<p>CyberShield helps you understand online threats, learn safe habits, and use powerful tools to stay secure in today’s connected world.</p>
+<a class="cta" href="learn.html">Start Learning</a>
+</section>
+
+<section class="section">
+<h2>What You Can Do Here</h2>
+
+<div class="cards">
+<div class="card">
+<h3>📚 Learn Cybersecurity</h3>
+<p>Understand phishing, malware, and hacking through simple interactive lessons.</p>
+</div>
+
+<div class="card">
+<h3>🛠 Security Tools</h3>
+<p>Use password checkers and safety guides to evaluate your online safety.</p>
+</div>
+
+<div class="card">
+<h3>⚠ Threat Database</h3>
+<p>Explore common cyber attacks and how they impact real people and companies.</p>
+</div>
+</div>
+
+<div class="password-tool">
+<h3>Test Your Password</h3>
+<p style="opacity: 0.8;">Enter a password to see how long it would take to crack.</p>
+<input type="text" id="main-password" class="password-input" placeholder="Type a password...">
+<div class="password-results">
+<p>Strength: <span id="main-strength">-</span></p>
+<p>Time to crack: <span id="main-time">-</span></p>
+</div>
+</div>
+
+</section>
+
+<script>
+const mainInput = document.getElementById("main-password");
+const mainStrength = document.getElementById("main-strength");
+const mainTime = document.getElementById("main-time");
+
+mainInput.addEventListener("input", () => {
+let val = mainInput.value;
+if (!val) {
+mainStrength.textContent = "-";
+mainStrength.style.color = "white";
+mainTime.textContent = "-";
+return;
+}
+
+let pool = 0;
+if (/[a-z]/.test(val)) pool += 26;
+if (/[A-Z]/.test(val)) pool += 26;
+if (/[0-9]/.test(val)) pool += 10;
+if (/[^a-zA-Z0-9]/.test(val)) pool += 32;
+if (pool === 0) pool = 1;
+
+const combinations = Math.pow(pool, val.length);
+const guessesPerSecond = 100000000000; // Assuming a rig making 100 billion guesses/sec
+const seconds = combinations / guessesPerSecond;
+
+if (val.length < 5 || seconds < 1) { mainStrength.textContent = "Very Weak"; mainStrength.style.color = "#ff3333"; }
+else if (val.length < 7 || seconds < 3600) { mainStrength.textContent = "Weak"; mainStrength.style.color = "#ff7733"; }
+else if (val.length < 10 || seconds < 2592000) { mainStrength.textContent = "Medium"; mainStrength.style.color = "#ffcc00"; }
+else if (val.length < 12 || seconds < 315360000) { mainStrength.textContent = "Strong"; mainStrength.style.color = "#33cc33"; }
+else { mainStrength.textContent = "Very Strong"; mainStrength.style.color = "#00f7ff"; }
+
+if (seconds < 1) mainTime.textContent = "Instantly";
+else if (seconds < 60) mainTime.textContent = Math.round(seconds) + " seconds";
+else if (seconds < 3600) mainTime.textContent = Math.round(seconds / 60) + " minutes";
+else if (seconds < 86400) mainTime.textContent = Math.round(seconds / 3600) + " hours";
+else if (seconds < 2592000) mainTime.textContent = Math.round(seconds / 86400) + " days";
+else if (seconds < 31536000) mainTime.textContent = Math.round(seconds / 2592000) + " months";
+else if (seconds < 3153600000) mainTime.textContent = Math.round(seconds / 31536000) + " years";
+else mainTime.textContent = "Centuries";
+});
+</script>
+
+</body>
+</html>

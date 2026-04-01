@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Tools | CyberShield</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,sans-serif;}
+body{background: linear-gradient(270deg,#02040a,#071a2f,#02040a);background-size:600% 600%;animation:bg 12s ease infinite;color:white;padding-top: 80px;}
+@keyframes bg{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+nav{display:flex;justify-content:space-between;align-items:center;padding:18px 40px;background:rgba(0,0,0,0.6);backdrop-filter:blur(8px);position:fixed;width:100%;top:0;z-index:100;}
+nav h1{font-family:Orbitron;color:#00f7ff;}
+nav a{color:white;margin-left:20px;text-decoration:none;font-weight:600;transition:color 0.3s ease;}
+nav a:hover{color:#00f7ff;}
+.section{padding:40px;width:80%;max-width:1400px;margin: 0 auto;text-align:center;}
+.section h2{font-size:2.5rem;margin-bottom:20px;font-family:Orbitron;color:#00f7ff;}
+.tool-container{background:rgba(255,255,255,0.05);padding:40px;border-radius:20px;border: 1px solid rgba(0, 247, 255, 0.3);text-align:left;box-shadow:0 10px 30px rgba(0,0,0,0.5);}
+.cta{margin-top:20px;padding:14px 28px;background:#00f7ff;color:black;border-radius:30px;text-decoration:none;font-weight:bold;transition:all 0.3s ease;display: inline-block; border:none; cursor:pointer; font-size:1rem;}
+.cta:hover{transform:translateY(-3px) scale(1.05);box-shadow:0 10px 20px rgba(0, 247, 255, 0.4);}
+textarea{width:100%;min-height:200px;background:rgba(0,0,0,0.5);border:1px solid #00f7ff;border-radius:10px;padding:15px;color:white;font-size:1.1rem;margin-bottom:20px;resize:vertical;}
+textarea:focus{outline:none;box-shadow:0 0 15px rgba(0, 247, 255, 0.5);}
+.results-box{margin-top:30px;padding:20px;border-radius:10px;background:rgba(0,0,0,0.3);display:none;}
+.results-box h3{font-family:Orbitron;margin-bottom:15px;}
+.results-box ul{list-style-type:none;padding-left:0;}
+.results-box li{background:rgba(255,255,255,0.08);padding:10px;border-radius:5px;margin-bottom:8px;border-left:3px solid #ef4444;}
+</style>
+</head>
+<body>
+
+<nav>
+<h1>CyberShield</h1>
+<div>
+<a href="index.html">Home</a>
+<a href="learn.html">Learn</a>
+<a href="threats.html">Threats</a>
+</div>
+</nav>
+
+<section class="section">
+<h2>AI Phishing Detector</h2>
+
+<div class="tool-container">
+<p style="text-align:center; margin-bottom:20px; opacity:0.8;">Paste the full text of a suspicious email below. Our AI will analyze it for common phishing red flags.</p>
+<textarea id="email-text" placeholder="From: Security Alert <security@paypaI.com>..."></textarea>
+<div style="text-align:center;">
+<button id="analyze-btn" class="cta">Analyze Email</button>
+</div>
+
+<div id="results" class="results-box">
+<h3>Analysis Results</h3>
+<p><strong>Risk Level:</strong> <span id="risk-level" style="font-weight:bold;"></span></p>
+<br>
+<p id="findings-title" style="font-weight:bold;"></p>
+<ul id="findings-list"></ul>
+</div>
+</div>
+
+</section>
+
+<script>
+document.getElementById("analyze-btn").addEventListener("click", () => {
+const text = document.getElementById("email-text").value.toLowerCase();
+const resultsBox = document.getElementById("results");
+const riskLevelEl = document.getElementById("risk-level");
+const findingsTitle = document.getElementById("findings-title");
+const findingsList = document.getElementById("findings-list");
+
+if (!text) {
+alert("Please paste some text to analyze.");
+return;
+}
+
+const redFlags = [
+{ keyword: "urgent", reason: "Creates a false sense of urgency to rush you into making a mistake." },
+{ keyword: "immediately", reason: "Pressures you to act without thinking." },
+{ keyword: "suspended", reason: "Threatens account suspension to scare you into clicking." },
+{ keyword: "locked", reason: "Threatens to lock your account to create panic." },
+{ keyword: "verify", reason: "Asks you to 'verify' details, a common trick to steal credentials." },
+{ keyword: "dear customer", reason: "Legitimate companies usually address you by name." },
+{ keyword: "dear user", reason: "Generic greetings are a sign of a mass phishing campaign." },
+{ keyword: "click here", reason: "Vague instructions to click a link are often malicious." },
+{ keyword: "invoice", reason: "Unexpected invoices are used to trick you into opening malicious attachments." },
+{ keyword: "refund", reason: "The promise of an unexpected refund is a common lure." },
+{ keyword: "unusual sign-in", reason: "While sometimes legitimate, this is a very common phishing tactic." },
+{ keyword: "paypai", reason: "Uses a capital 'i' to look like a lowercase 'L' in 'paypal'." },
+{ keyword: "bankofamerica", reason: "Often uses lookalike domains without the real punctuation (e.g. bofa.com)." }
+];
+
+let score = 0;
+let foundFlags = [];
+
+redFlags.forEach(flag => {
+if (text.includes(flag.keyword)) {
+score++;
+foundFlags.push(flag.reason);
+}
+});
+
+findingsList.innerHTML = "";
+if (foundFlags.length > 0) {
+findingsTitle.textContent = "The following red flags were detected:";
+foundFlags.forEach(reason => {
+const li = document.createElement("li");
+li.textContent = reason;
+findingsList.appendChild(li);
+});
+} else {
+findingsTitle.textContent = "No common red flags were detected. However, always remain cautious.";
+}
+
+if (score === 0) { riskLevelEl.textContent = "Low"; riskLevelEl.style.color = "#22c55e"; }
+else if (score <= 2) { riskLevelEl.textContent = "Medium"; riskLevelEl.style.color = "#ffcc00"; }
+else if (score <= 4) { riskLevelEl.textContent = "High"; riskLevelEl.style.color = "#ff7733"; }
+else { riskLevelEl.textContent = "Critical"; riskLevelEl.style.color = "#ef4444"; }
+
+resultsBox.style.display = "block";
+});
+</script>
+
+</body>
+</html>

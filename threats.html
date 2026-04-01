@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Threats | CyberShield</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,sans-serif;}
+body{background: linear-gradient(270deg,#02040a,#071a2f,#02040a);background-size:600% 600%;animation:bg 12s ease infinite;color:white;padding-top: 80px;}
+@keyframes bg{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+nav{display:flex;justify-content:space-between;align-items:center;padding:18px 40px;background:rgba(0,0,0,0.6);backdrop-filter:blur(8px);position:fixed;width:100%;top:0;z-index:100;}
+nav h1{font-family:Orbitron;color:#00f7ff;}
+nav a{color:white;margin-left:20px;text-decoration:none;font-weight:600;transition:color 0.3s ease;}
+nav a:hover{color:#00f7ff;}
+.section{padding:40px;max-width:1200px;margin: 0 auto;}
+.section h2{font-size:2.5rem;margin-bottom:40px;text-align:center;font-family:Orbitron;color:#00f7ff;}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:30px;}
+.card{background:rgba(255,255,255,0.05);padding:30px;border-radius:20px;border: 1px solid rgba(255,255,255,0.1);}
+.card h3{font-size:1.5rem;margin-bottom:15px;font-family:Orbitron;color:#00f7ff;}
+.card p{font-size:1.1rem;line-height:1.6;opacity:0.8;}
+.card strong{color:#00f7ff;opacity:1;}
+</style>
+</head>
+<body>
+
+<nav>
+<h1>CyberShield</h1>
+<div>
+<a href="index.html">Home</a>
+<a href="learn.html">Learn</a>
+<a href="tools.html">Tools</a>
+</div>
+</nav>
+
+<section class="section">
+<h2>Threat Database</h2>
+
+<div class="cards">
+
+<div class="card">
+<h3>Ransomware</h3>
+<p>Malware that encrypts a victim's files, making them inaccessible. The attacker then demands a ransom payment, often in cryptocurrency, in exchange for the decryption key.</p>
+<br>
+<p><strong>Impact:</strong> Can shut down entire businesses, hospitals, and city governments, leading to massive financial loss and disruption of critical services.</p>
+</div>
+
+<div class="card">
+<h3>Denial-of-Service (DoS)</h3>
+<p>An attack designed to make a website or online service unavailable to its intended users. This is achieved by overwhelming the target with a flood of internet traffic.</p>
+<br>
+<p><strong>Impact:</strong> Prevents legitimate users from accessing services, causing loss of revenue and reputational damage for online businesses.</p>
+</div>
+
+<div class="card">
+<h3>Man-in-the-Middle (MitM)</h3>
+<p>An attacker secretly intercepts and relays communication between two parties who believe they are communicating directly with each other. This allows the attacker to eavesdrop and alter conversations.</p>
+<br>
+<p><strong>Impact:</strong> Can be used to steal login credentials and personal information on unsecured public Wi-Fi networks.</p>
+</div>
+
+<div class="card">
+<h3>Zero-Day Exploit</h3>
+<p>A cyber attack that occurs on the same day a weakness is discovered in a piece of software. Because the developer has had "zero days" to fix it, these attacks are highly effective.</p>
+<br>
+<p><strong>Impact:</strong> Can lead to widespread, severe breaches before a patch is available, as seen in major software vulnerabilities like Log4j.</p>
+</div>
+
+</div>
+
+</section>
+
+</body>
+</html>

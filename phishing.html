@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Phishing | CyberShield</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,sans-serif;}
+body{background: linear-gradient(270deg,#02040a,#071a2f,#02040a);background-size:600% 600%;animation:bg 12s ease infinite;color:white;padding-top: 80px;}
+@keyframes bg{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+nav{display:flex;justify-content:space-between;align-items:center;padding:18px 40px;background:rgba(0,0,0,0.6);backdrop-filter:blur(8px);position:fixed;width:100%;top:0;z-index:100;}
+nav h1{font-family:Orbitron;color:#00f7ff;}
+nav a{color:white;margin-left:20px;text-decoration:none;font-weight:600;transition:color 0.3s ease;}
+nav a:hover{color:#00f7ff;}
+.section{padding:40px;width:80%;max-width:1400px;margin: 0 auto;text-align:center;}
+.section h2{font-size:2.5rem;margin-bottom:20px;font-family:Orbitron;color:#00f7ff;}
+.info-box{background:rgba(255,255,255,0.05);padding:40px;border-radius:20px;border: 1px solid rgba(0, 247, 255, 0.3);text-align:left;line-height:1.8;font-size:1.1rem;box-shadow:0 10px 30px rgba(0,0,0,0.5);}
+.info-box h3{color:#00f7ff;margin-top:25px;margin-bottom:10px;font-family:Orbitron;font-size:1.4rem;}
+.cta{margin-top:40px;padding:14px 28px;background:#00f7ff;color:black;border-radius:30px;text-decoration:none;font-weight:bold;transition:all 0.3s ease;display: inline-block; border:none; cursor:pointer; font-size:1rem;}
+.cta:hover{transform:translateY(-3px) scale(1.05);box-shadow:0 10px 20px rgba(0, 247, 255, 0.4);}
+
+.game-container{background:rgba(255,255,255,0.05);padding:30px;border-radius:20px;border: 1px solid rgba(0, 247, 255, 0.3);margin-top:40px;box-shadow:0 10px 30px rgba(0,0,0,0.5);}
+.email-client{background:white;color:black;text-align:left;border-radius:10px;overflow:hidden;margin-bottom:20px;}
+.email-header{background:#f1f3f4;padding:15px;border-bottom:1px solid #ddd;}
+.email-header p{margin:5px 0;font-size:1rem;}
+.email-body{padding:20px;font-size:1.1rem;line-height:1.6;min-height:150px;}
+.game-controls{display:flex;justify-content:center;gap:20px;}
+.btn-game{padding:12px 24px;border-radius:8px;font-weight:bold;cursor:pointer;border:none;font-size:1.1rem;transition:transform 0.2s;}
+.btn-game:hover{transform:scale(1.05);}
+.btn-real{background:#22c55e;color:white;}
+.btn-fake{background:#ef4444;color:white;}
+.feedback{margin-top:20px;padding:20px;border-radius:10px;display:none;}
+.feedback.show{display:block;}
+.feedback h3{font-size:1.5rem;margin-bottom:10px;font-family:Orbitron;}
+.feedback p{font-size:1.1rem;line-height:1.5;margin-bottom:20px;}
+.feedback.correct{background:rgba(34, 197, 94, 0.2);border:1px solid #22c55e;}
+.feedback.wrong{background:rgba(239, 68, 68, 0.2);border:1px solid #ef4444;}
+</style>
+</head>
+<body>
+
+<nav>
+<h1>CyberShield</h1>
+<div>
+<a href="index.html">Home</a>
+<a href="tools.html">Tools</a>
+<a href="threats.html">Threats</a>
+</div>
+</nav>
+
+<section class="section">
+
+<div style="text-align: left; margin-bottom: 20px;">
+<a href="learn.html" class="cta" style="margin-top: 0;">&larr; Back to Learn</a>
+</div>
+
+<h2>Phishing</h2>
+
+<div class="info-box">
+<p>Phishing is a type of social engineering attack often used to steal user data, including login credentials and credit card numbers. It occurs when an attacker, masquerading as a trusted entity, dupes a victim into opening an email, instant message, or text message. The recipient is then tricked into clicking a malicious link, which can lead to the installation of malware, the freezing of the system as part of a ransomware attack, or the revealing of sensitive information.</p>
+
+<h3 style="margin-top:20px;">Common Types of Phishing:</h3>
+<ul style="margin-left: 20px; margin-bottom: 20px;">
+<li style="padding-bottom: 10px;"><strong>Spear Phishing:</strong> Targeted at specific individuals or companies, using gathered personal info to seem highly legitimate.</li>
+<li style="padding-bottom: 10px;"><strong>Whaling:</strong> A form of spear phishing aimed at high-profile targets like senior executives.</li>
+<li><strong>Smishing:</strong> Phishing conducted via SMS/text messages.</li>
+</ul>
+
+<h3>How to spot it:</h3>
+<p>Look for urgent or threatening language, unexpected attachments, or slightly misspelled email domains (like @pay-paI.com instead of @paypal.com). Generic greetings like "Dear Customer" instead of your actual name are also major red flags.</p>
+
+<h3>Action step:</h3>
+<p>If you're unsure, do not click anything. Navigate directly to the company's official website via your browser by typing the URL manually. Enable multi-factor authentication (MFA) to ensure that even if they get your password, they can't access your account.</p>
+</div>
+
+<div class="game-container">
+<h3 style="font-family:Orbitron; color:#00f7ff; margin-bottom: 10px; font-size: 1.8rem;">Spot the Phish!</h3>
+<p style="margin-bottom: 20px; opacity: 0.8;">Review the email below and decide if it's real or a scam.</p>
+
+<div id="email-display">
+<div class="email-client">
+<div class="email-header">
+<p><strong>From:</strong> <span id="email-sender"></span></p>
+<p><strong>Subject:</strong> <span id="email-subject"></span></p>
+</div>
+<div class="email-body" id="email-body"></div>
+</div>
+
+<div class="game-controls" id="game-controls">
+<button class="btn-game btn-real" onclick="checkAnswer(false)">Real Email</button>
+<button class="btn-game btn-fake" onclick="checkAnswer(true)">Phishing Scam</button>
+</div>
+</div>
+
+<div id="feedback" class="feedback">
+<h3 id="feedback-title"></h3>
+<p id="feedback-text"></p>
+<button class="cta" onclick="nextEmail()" style="margin-top: 0;">Next Email</button>
+</div>
+
+<div id="game-over" class="feedback" style="text-align:center;">
+<h3 style="color:#00f7ff; border:none; background:transparent;">Game Over!</h3>
+<p id="final-score" style="font-size: 1.3rem; font-weight: bold;"></p>
+<button class="cta" onclick="restartGame()" style="margin-top: 0;">Play Again</button>
+</div>
+</div>
+
+</section>
+
+</body>
+
+<script>
+const allEmails = [
+{
+sender: "Security Team &lt;security@paypaI.com&gt;",
+subject: "Urgent: Your account is suspended",
+body: "Dear customer,<br><br>We detected suspicious activity on your account. Please click the link below to verify your identity immediately or your account will be permanently locked.<br><br><a href='#' style='color:blue;text-decoration:underline;'>Verify Account</a>",
+isPhish: true,
+explanation: "Look closely at the sender's email! It uses a capital 'I' instead of an 'l' in paypal.com. Urgent threats and generic greetings ('Dear customer') are also major red flags."
+},
+{
+sender: "Netflix &lt;info@mailer.netflix.com&gt;",
+subject: "New sign-in to your account",
+body: "Hi John,<br><br>We noticed a new sign-in to your Netflix account from a new device. If this was you, you don't need to do anything. If not, please change your password.<br><br>The Netflix Team",
+isPhish: false,
+explanation: "This is a legitimate alert. The sender domain is correct, it uses your actual name, and it doesn't try to force you to click a suspicious link immediately."
+},
+{
+sender: "IT Helpdesk &lt;admin@company-support-portal.com&gt;",
+subject: "Mandatory Password Update",
+body: "All employees must update their email passwords within 24 hours due to a server migration. Failure to comply will result in email access loss.<br><br><a href='#' style='color:blue;text-decoration:underline;'>Update Password Here</a>",
+isPhish: true,
+explanation: "Phishers often create fake urgent deadlines. The sender domain 'company-support-portal.com' is suspicious and likely not your company's actual internal domain."
+},
+{
+sender: "Amazon &lt;shipment-tracking@amazon.com&gt;",
+subject: "Your package has been delivered",
+body: "Hello,<br><br>Your package has been delivered. To view your delivery photo or manage your orders, please visit your account.<br><br>Thank you for shopping with us.",
+isPhish: false,
+explanation: "Legitimate notification. The domain matches amazon.com, there is no urgent call to action, and no threat of account suspension."
+},
+{
+sender: "HR Department &lt;hr@company.com.external-update.net&gt;",
+subject: "Important: Updated Employee Benefits",
+body: "Dear Employee,<br><br>Please review the updated employee benefits document for this year. You must sign in to acknowledge receipt.<br><br><a href='#'>View Document</a>",
+isPhish: true,
+explanation: "Notice the domain: 'company.com.external-update.net'. The actual domain is 'external-update.net', which is a classic trick to make the email look internal."
+},
+{
+sender: "Bank of America &lt;alerts@bofa.com&gt;",
+subject: "Low Balance Alert",
+body: "Your checking account balance has dropped below $25.00. Please log in to your account to review your recent transactions.",
+isPhish: false,
+explanation: "This is a standard automated alert. There are no suspicious links demanding immediate password resets."
+},
+{
+sender: "Microsoft 365 &lt;no-reply@microsoft-security-alert.com&gt;",
+subject: "Action Required: Email Deactivation",
+body: "Your mailbox has exceeded its storage limit. To prevent deactivation, click below to upgrade your quota free of charge.<br><br><a href='#'>Upgrade Storage</a>",
+isPhish: true,
+explanation: "Threatening to deactivate an account is a strong red flag. Furthermore, the domain 'microsoft-security-alert.com' is fake; real Microsoft emails come from domains like 'microsoft.com'."
+},
+{
+sender: "IRS &lt;refunds@irs.gov.us&gt;",
+subject: "You are eligible for a tax refund",
+body: "Dear Taxpayer,<br><br>We have calculated that you are eligible for a refund of $1,450.00. Please fill out the attached form to claim your funds immediately.",
+isPhish: true,
+explanation: "The IRS does not initiate contact with taxpayers by email to request personal or financial information. 'irs.gov.us' is also a fake domain."
+},
+{
+sender: "Apple &lt;noreply@apple.com&gt;",
+subject: "Your receipt from Apple",
+body: "You have purchased 'Pro App Bundle' for $199.99. If you did not authorize this purchase, please review your account statement.",
+isPhish: false,
+explanation: "A standard receipt. Note that it doesn't have an immediate 'cancel this order now' malicious link, and the sender is the legitimate apple.com domain."
+},
+{
+sender: "Google Security &lt;security-alert@google.com&gt;",
+subject: "Security Alert for your linked account",
+body: "Your account was recently signed into from an unrecognized Windows device in Russia. If this wasn't you, secure your account.",
+isPhish: false,
+explanation: "This is a real security alert. Companies like Google will notify you of suspicious logins and guide you to their official dashboard without hiding malicious URLs."
+}
+];
+
+let sessionEmails = [];
+let currentEmail = 0;
+let score = 0;
+
+function restartGame() {
+let shuffled = [...allEmails].sort(() => 0.5 - Math.random());
+sessionEmails = shuffled.slice(0, 5);
+currentEmail = 0;
+score = 0;
+document.getElementById("game-over").classList.remove("show");
+document.getElementById("email-display").style.display = "block";
+loadEmail();
+}
+
+function loadEmail() {
+document.getElementById("feedback").classList.remove("show", "correct", "wrong");
+document.getElementById("game-controls").style.display = "flex";
+
+const email = sessionEmails[currentEmail];
+document.getElementById("email-sender").innerHTML = email.sender;
+document.getElementById("email-subject").innerHTML = email.subject;
+document.getElementById("email-body").innerHTML = email.body;
+}
+
+function checkAnswer(guessIsPhish) {
+const email = sessionEmails[currentEmail];
+const isCorrect = guessIsPhish === email.isPhish;
+if (isCorrect) score++;
+
+const feedbackEl = document.getElementById("feedback");
+document.getElementById("game-controls").style.display = "none";
+
+feedbackEl.classList.add("show", isCorrect ? "correct" : "wrong");
+document.getElementById("feedback-title").innerText = isCorrect ? "Correct!" : "Oops, you missed that one!";
+document.getElementById("feedback-text").innerHTML = email.explanation;
+}
+
+function nextEmail() {
+currentEmail++;
+if (currentEmail < sessionEmails.length) {
+loadEmail();
+} else {
+document.getElementById("feedback").classList.remove("show");
+document.getElementById("email-display").style.display = "none";
+document.getElementById("game-over").classList.add("show");
+document.getElementById("final-score").innerText = "You scored " + score + " out of " + sessionEmails.length + "!";
+}
+}
+
+window.onload = restartGame;
+</script>
+</html>

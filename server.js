@@ -10,23 +10,27 @@ app.post('/analyze', async (req, res) => {
   try {
     const text = req.body.text;
     const apiKey = process.env.API_KEY;
-    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+    const endpoint = `https://api.groq.com/openai/v1/chat/completions`;
     
     const prompt = `Analyze this email for phishing. Return a JSON object with exactly two keys: "riskLevel" (must be exactly "Low", "Medium", "High", or "Critical") and "findings" (an array of strings explaining the red flags). Email: "${text}"`;
 
     const response = await fetch(endpoint, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`
+      },
       body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: { response_mime_type: "application/json" }
+        model: "llama3-8b-8192",
+        messages: [{ role: "user", content: prompt }],
+        response_format: { type: "json_object" }
       })
     });
 
-    if (!response.ok) throw new Error("API request to Google failed.");
+    if (!response.ok) throw new Error("API request to Groq failed.");
     
     const data = await response.json();
-    const result = JSON.parse(data.candidates[0].content.parts[0].text);
+    const result = JSON.parse(data.choices[0].message.content);
     res.json(result); // Send the parsed result back to tools.html
   } catch (error) {
     console.error(error);

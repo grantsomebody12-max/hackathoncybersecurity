@@ -10,8 +10,9 @@ body{background: linear-gradient(270deg,#02040a,#071a2f,#02040a);background-size
 @keyframes slideUp{0%{opacity:0;transform:translateY(40px);}100%{opacity:1;transform:translateY(0);}}
 nav{display:flex;justify-content:space-between;align-items:center;padding:18px 40px;background:rgba(0,0,0,0.6);backdrop-filter:blur(8px);position:fixed;width:100%;top:0;z-index:100;}
 nav .logo{font-family:Orbitron;color:#00f7ff;font-size: 2em;font-weight: bold;text-decoration: none;margin-left: 0;}
-nav a{color:white;margin-left:20px;text-decoration:none;font-weight:600;transition:color 0.3s ease;}
-nav a:hover{color:#00f7ff;}
+.nav-links { display: flex; flex: 1; justify-content: space-evenly; margin-left: 40px; flex-wrap: wrap; gap: 10px; }
+.nav-links a { color:white; padding:10px 20px; border-radius:25px; background:rgba(0, 247, 255, 0.15); border:1px solid rgba(0, 247, 255, 0.4); text-decoration:none; font-weight:600; transition:all 0.3s ease; text-align: center; }
+.nav-links a:hover { color:#00f7ff; background:rgba(0, 247, 255, 0.3); border-color:#00f7ff; transform:translateY(-2px); box-shadow:0 4px 15px rgba(0, 247, 255, 0.3); }
 .section{padding:40px;width:80%;max-width:1400px;margin: 0 auto;text-align:center;}
 .section h2{font-size:2.5rem;margin-bottom:20px;font-family:Orbitron;color:#00f7ff;}
 .info-box{background:rgba(255,255,255,0.05);padding:40px;border-radius:20px;border: 1px solid rgba(0, 247, 255, 0.3);text-align:left;line-height:1.8;font-size:1.1rem;box-shadow:0 10px 30px rgba(0,0,0,0.5);opacity:0;animation:slideUp 0.8s ease-out forwards;}
@@ -31,22 +32,22 @@ nav a:hover{color:#00f7ff;}
 .keyhole {width: 14px; height: 14px; background: rgba(2, 4, 10, 0.8); border-radius: 50%; position: relative;}
 .keyhole::after {content: ''; position: absolute; top: 8px; left: 4px;width: 6px; height: 14px; background: rgba(2, 4, 10, 0.8); border-radius: 2px;}
 @keyframes zoomInUnlock {0% { transform: scale(1) translateZ(0); opacity: 1; }20% { transform: scale(1.1) translateZ(0); opacity: 1; }100% { transform: scale(4) translateZ(0); opacity: 0; }}
-.nav-group {display: flex;align-items: center;}
-@media (max-width: 768px) {nav {flex-direction: column;gap: 10px;padding: 15px;}.nav-group {justify-content: center;flex-wrap: wrap;gap: 10px 15px;}nav a {margin-left: 0;}}
+.video-container {position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 20px; border: 1px solid rgba(0, 247, 255, 0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.5); margin-top: 40px; opacity: 0; animation: slideUp 0.8s ease-out 0.2s forwards;}
+.video-container iframe {position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;}
+@media (max-width: 768px) {nav {flex-direction: column;gap: 15px;padding: 15px;} .nav-links {margin-left: 0; width: 100%; justify-content: center; gap: 10px;} .nav-links a {padding: 8px 12px; font-size: 0.9rem;}}
 </style>
 </head>
 <body>
 
 <nav>
-<div class="nav-group">
   <a href="index.html" class="logo" onclick="triggerUnlock(event, this.href)">CyberShield</a>
-  <a href="phishing.html" onclick="triggerUnlock(event, this.href)">Phishing</a>
-  <a href="malware.html" onclick="triggerUnlock(event, this.href)">Malware</a>
-  <a href="passwords.html" onclick="triggerUnlock(event, this.href)">Passwords</a>
-</div>
-<div class="nav-group">
-  <a href="threats.html" onclick="triggerUnlock(event, this.href)">Threats</a>
-</div>
+  <div class="nav-links">
+    <a href="phishing.html" onclick="triggerUnlock(event, this.href)">Phishing</a>
+    <a href="malware.html" onclick="triggerUnlock(event, this.href)">Malware</a>
+    <a href="passwords.html" onclick="triggerUnlock(event, this.href)">Passwords</a>
+    <a href="game.html" onclick="triggerUnlock(event, this.href)">Skill Tree</a>
+    <a href="threats.html" onclick="triggerUnlock(event, this.href)">Threats</a>
+  </div>
 </nav>
 
 <section class="section">
@@ -69,6 +70,10 @@ nav a:hover{color:#00f7ff;}
 
 <h3>Solutions:</h3>
 <p>Always ensure you are using encrypted connections (look for "HTTPS" and the padlock icon in your browser). Avoid accessing sensitive accounts like banking on public Wi-Fi networks unless you are using a reputable Virtual Private Network (VPN), which encrypts your data tunnel. Enabling Multi-Factor Authentication (MFA) also ensures that even if a password is intercepted, the attacker cannot log in to your account.</p>
+</div>
+
+<div class="video-container">
+<iframe src="https://www.youtube.com/embed/83LOa-dYi_A" title="What is a Man in the Middle Attack?" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
 </section>
@@ -122,6 +127,44 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+// Dystopian Nav Effect
+(function() {
+    const nav = document.querySelector('nav');
+    nav.style.overflow = 'hidden';
+    const canvas = document.createElement('canvas');
+    canvas.style.position = 'absolute';
+    canvas.style.top = '0';
+    canvas.style.left = '0';
+    canvas.style.width = '100%';
+    canvas.style.height = '100%';
+    canvas.style.opacity = '0.3';
+    canvas.style.pointerEvents = 'none';
+    nav.insertBefore(canvas, nav.firstChild);
+    const ctx = canvas.getContext('2d');
+    let width, height, drops;
+    function resize() {
+        width = canvas.width = nav.offsetWidth;
+        height = canvas.height = nav.offsetHeight;
+        drops = Array(Math.floor(width / 15)).fill(1);
+    }
+    window.addEventListener('resize', resize);
+    resize();
+    const chars = '0101010101X&#@%CYBER'.split('');
+    function draw() {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+        ctx.fillRect(0, 0, width, height);
+        ctx.fillStyle = '#00f7ff';
+        ctx.font = '12px Orbitron';
+        for(let i = 0; i < drops.length; i++) {
+            const text = chars[Math.floor(Math.random() * chars.length)];
+            ctx.fillText(text, i * 15, drops[i] * 15);
+            if(drops[i] * 15 > height && Math.random() > 0.9) drops[i] = 0;
+            drops[i]++;
+        }
+    }
+    setInterval(draw, 50);
+})();
 </script>
 </body>
 </html>

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Training Module | CyberShield</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,sans-serif;}
+body{background: linear-gradient(270deg,#02040a,#071a2f,#02040a);background-size:600% 600%;animation:bg 12s ease infinite;color:white;padding-top: 80px;}
+@keyframes bg{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+@keyframes slideUp{0%{opacity:0;transform:translateY(40px);}100%{opacity:1;transform:translateY(0);}}
+nav{display:flex;justify-content:space-between;align-items:center;padding:18px 40px;background:rgba(0,0,0,0.6);backdrop-filter:blur(8px);position:fixed;width:100%;top:0;z-index:100;}
+nav .logo{font-family:Orbitron;color:#00f7ff;font-size: 2em;font-weight: bold;text-decoration: none;margin-left: 0;}
+.nav-links { display: flex; flex: 1; justify-content: space-evenly; margin-left: 40px; flex-wrap: wrap; gap: 10px; }
+.nav-links a { color:white; padding:10px 20px; border-radius:25px; background:rgba(0, 247, 255, 0.15); border:1px solid rgba(0, 247, 255, 0.4); text-decoration:none; font-weight:600; transition:all 0.3s ease; text-align: center; }
+.nav-links a:hover { color:#00f7ff; background:rgba(0, 247, 255, 0.3); border-color:#00f7ff; transform:translateY(-2px); box-shadow:0 4px 15px rgba(0, 247, 255, 0.3); }
+.section{padding:40px;width:100%;max-width:800px;margin: 0 auto;text-align:center;}
+
+.cta{padding:12px 24px;background:#00f7ff;color:black;border-radius:30px;text-decoration:none;font-weight:bold;transition:all 0.3s ease;display: inline-block; border:none; cursor:pointer; font-size:1rem; margin-top:20px;}
+.cta:hover{transform:translateY(-3px) scale(1.05);box-shadow:0 10px 20px rgba(0, 247, 255, 0.4);}
+.cta:disabled{background:#555; color:#888; cursor:not-allowed; box-shadow:none; transform:none;}
+
+.training-container{background:rgba(255,255,255,0.05);padding:40px;border-radius:20px;border: 1px solid rgba(0, 247, 255, 0.3);margin-top:20px;box-shadow:0 10px 30px rgba(0,0,0,0.5);opacity:0;animation:slideUp 0.8s ease-out forwards;text-align:left;}
+.training-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px;border-bottom:1px solid rgba(255,255,255,0.1);padding-bottom:15px;}
+.training-header h2{font-family:Orbitron;color:#00f7ff;font-size:1.8rem;}
+.progress{font-weight:bold;color:rgba(255,255,255,0.7);}
+
+.quiz-question { font-size: 1.2rem; font-weight: bold; margin-bottom: 25px; line-height: 1.5; }
+.quiz-options { display: flex; flex-direction: column; gap: 12px; }
+.quiz-option { background: rgba(0,0,0,0.5); border: 2px solid rgba(255,255,255,0.1); padding: 15px 20px; border-radius: 10px; cursor: pointer; transition: all 0.2s; font-size: 1.05rem; line-height: 1.4; }
+.quiz-option:hover { background: rgba(0, 247, 255, 0.1); border-color: rgba(0, 247, 255, 0.5); }
+.quiz-option.selected { background: rgba(0, 247, 255, 0.2); border-color: #00f7ff; box-shadow: inset 0 0 10px rgba(0, 247, 255, 0.2); }
+
+.quiz-feedback { margin-top: 25px; font-size: 1.05rem; display: none; padding: 20px; border-radius: 10px; line-height: 1.6; }
+.quiz-feedback h3 { font-family: Orbitron; margin-bottom: 10px; font-size: 1.4rem; }
+.quiz-feedback.success { background: rgba(34, 197, 94, 0.15); border: 1px solid #22c55e; }
+.quiz-feedback.success h3 { color: #22c55e; }
+.quiz-feedback.error { background: rgba(239, 68, 68, 0.15); border: 1px solid #ef4444; }
+.quiz-feedback.error h3 { color: #ef4444; }
+
+#completion-screen { display:none; text-align:center; padding:40px 0; }
+#completion-screen h2 { font-size:2.5rem; color:#22c55e; font-family:Orbitron; margin-bottom:15px; }
+#completion-screen p { font-size:1.2rem; opacity:0.8; margin-bottom:30px; }
+
+/* Lock Animation */
+#unlock-overlay {position: fixed; top: 0; left: 0; width: 100%; height: 100%;background: rgba(2, 4, 10, 0.9); backdrop-filter: blur(10px);z-index: 99999; display: flex; justify-content: center; align-items: center;opacity: 0; pointer-events: none; transition: opacity 0.15s ease;}
+#unlock-overlay.active { opacity: 1; pointer-events: all; }
+.lock-icon {position: relative; width: 80px; height: 110px; display: flex; flex-direction: column; align-items: center;transform: scale(0.8) translateZ(0); transition: transform 0.15s;will-change: transform, opacity;}
+#unlock-overlay.active .lock-icon {animation: zoomInUnlock 0.4s cubic-bezier(0.25, 1, 0.5, 1) forwards;animation-delay: 0.15s;}
+.shackle {width: 46px; height: 40px;border: 8px solid rgba(255,255,255,0.2); border-bottom: none;border-top-left-radius: 25px; border-top-right-radius: 25px;position: relative; top: 8px; z-index: 1;transform-origin: right bottom;transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);will-change: transform;}
+#unlock-overlay.active .shackle {transform: translateY(-15px) rotate(-20deg) translateZ(0);border-color: #00f7ff;filter: drop-shadow(0 0 10px #00f7ff);}
+.lock-body {width: 80px; height: 60px;background: rgba(255,255,255,0.1); border-radius: 10px;position: relative; z-index: 2;display: flex; justify-content: center; align-items: center;transition: all 0.2s ease;border: 2px solid rgba(255,255,255,0.2);will-change: background, border-color, box-shadow;}
+#unlock-overlay.active .lock-body {background: #00f7ff;border-color: #00f7ff;box-shadow: 0 0 20px #00f7ff, 0 0 40px rgba(0, 247, 255, 0.6), inset 0 0 15px rgba(255,255,255,0.8);}
+.keyhole {width: 14px; height: 14px; background: rgba(2, 4, 10, 0.8); border-radius: 50%; position: relative;}
+.keyhole::after {content: ''; position: absolute; top: 8px; left: 4px;width: 6px; height: 14px; background: rgba(2, 4, 10, 0.8); border-radius: 2px;}
+@keyframes zoomInUnlock {0% { transform: scale(1) translateZ(0); opacity: 1; }20% { transform: scale(1.1) translateZ(0); opacity: 1; }100% { transform: scale(4) translateZ(0); opacity: 0; }}
+
+@media (max-width: 768px) {
+  nav { flex-direction: column; gap: 15px; padding: 15px; }
+  .nav-links { margin-left: 0; width: 100%; justify-content: center; gap: 10px; }
+  .nav-links a { padding: 8px 12px; font-size: 0.9rem; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo" onclick="triggerUnlock(event, this.href)">CyberShield</a>
+  <div class="nav-links">
+    <a href="phishing.html" onclick="triggerUnlock(event, this.href)">Phishing</a>
+    <a href="malware.html" onclick="triggerUnlock(event, this.href)">Malware</a>
+    <a href="passwords.html" onclick="triggerUnlock(event, this.href)">Passwords</a>
+    <a href="game.html" onclick="triggerUnlock(event, this.href)">Skill Tree</a>
+    <a href="threats.html" onclick="triggerUnlock(event, this.href)">Threats</a>
+  </div>
+</nav>
+
+<section class="section">
+  <div style="text-align: left;">
+    <a href="game.html" onclick="triggerUnlock(event, this.href); return false;" class="cta" style="margin-top: 0; padding: 8px 16px; font-size: 0.9rem;">&larr; Back to Tree</a>
+  </div>
+
+  <div class="training-container" id="quiz-block">
+    <div class="training-header">
+      <h2 id="module-title">Module Training</h2>
+      <div class="progress" id="progress-text">Question 1 of 5</div>
+    </div>
+
+    <div class="quiz-question" id="quiz-question">Loading question...</div>
+    <div class="quiz-options" id="quiz-options"></div>
+    
+    <div class="quiz-feedback" id="quiz-feedback">
+      <h3 id="feedback-heading"></h3>
+      <p id="feedback-text"></p>
+    </div>
+    
+    <div style="text-align: right;">
+      <button class="cta" id="submit-btn" disabled>Submit Answer</button>
+    </div>
+  </div>
+
+  <div class="training-container" id="completion-screen">
+    <h2>Access Granted!</h2>
+    <p>You have successfully mastered this module. The node has been unlocked on your Skill Tree.</p>
+    <button class="cta" onclick="triggerUnlock(event, 'game.html')">Return to Skill Tree</button>
+  </div>
+
+</section>
+
+<div id="unlock-overlay">
+  <div class="lock-icon">
+    <div class="shackle"></div>
+    <div class="lock-body">
+      <div class="keyhole"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Lock Animation Logic
+function triggerUnlock(event, action) {
+    if(event) event.preventDefault();
+    const overlay = document.getElementById('unlock-overlay');
+    if(overlay) {
+        overlay.classList.add('active');
+        setTimeout(() => { 
+            if (typeof action === 'function') action();
+            else window.location.href = action; 
+        }, 450);
+    } else {
+        if (typeof action === 'function') action();
+        else window.location.href = action;
+    }
+}
+window.addEventListener('pageshow', () => {
+    const overlay = document.getElementById('unlock-overlay');
+    if(overlay) overlay.classList.remove('active');
+});
+
+// Training Data (5 questions per module)
+const allModules = {
+    "1": {
+        title: "Passwords & Authentication",
+        questions: [
+            { q: "Which of these is the most secure password strategy?", options: ["Using a complex 8-character password.", "Using your pet's name and birth year.", "Creating a long passphrase like 'BlueElephantDancingSlowly'."], correct: 2, explanation: "Length is the most critical factor for password security. A long, memorable passphrase is exponentially harder for computers to crack than a short, complex password." },
+            { q: "Why is 'Password Reuse' considered dangerous?", options: ["It takes up too much memory on your browser.", "If one website suffers a data breach, hackers will use your password to access all your other accounts.", "It confuses password manager software."], correct: 1, explanation: "Hackers use automated tools to test compromised credentials across thousands of sites simultaneously (credential stuffing). Unique passwords prevent this." },
+            { q: "What is the primary benefit of Multi-Factor Authentication (MFA)?", options: ["It stops you from needing a password at all.", "It makes your internet connection faster.", "It requires a second form of verification (like a phone code), so even if a hacker guesses your password, they can't get in."], correct: 2, explanation: "MFA acts as a crucial safety net. Even if your password is stolen, the attacker is blocked without physical access to your secondary device." },
+            { q: "You change your password from 'Summer2023!' to 'Winter2023!'. Is this secure?", options: ["Yes, because it includes a capital letter and a symbol.", "No, because predictable patterns are the first things cracking software will guess.", "Yes, as long as it's over 8 characters."], correct: 1, explanation: "Algorithms are designed to recognize patterns. If a hacker cracks your first password, they will instantly try seasonal and numerical variations of it." },
+            { q: "What is the safest way to store your complex, unique passwords?", options: ["Write them in a text file named 'passwords.txt' on your desktop.", "Use a reputable, encrypted Password Manager application.", "Save them as a draft in your email account."], correct: 1, explanation: "Password managers securely encrypt all your passwords behind a single master password, allowing you to use completely random credentials for every site without having to memorize them." }
+        ]
+    },
+    "2": {
+        title: "Phishing & Social Engineering",
+        questions: [
+            { q: "You receive an urgent email from 'security@paypaI.com' claiming your account is locked and providing a login link. What should you do?", options: ["Click the link and log in immediately to secure the account.", "Navigate manually to the official site in your browser to check your account status.", "Reply to the email asking for proof."], correct: 1, explanation: "Never click links in unexpected, urgent emails. The sender domain used a capital 'I' instead of a lowercase 'l'. Always navigate to the site manually." },
+            { q: "Which of the following is a common 'Red Flag' in a phishing email?", options: ["A generic greeting like 'Dear Customer'.", "An email sent during normal business hours.", "A link that explicitly matches the text written in the email."], correct: 0, explanation: "Legitimate businesses usually address you by your actual name. Scammers send millions of emails at once, so they use generic greetings." },
+            { q: "What should you do if an email from an unknown sender includes a file called 'Invoice_Overdue.pdf.exe'?", options: ["Download it but don't open it.", "Open it in a secure browser.", "Delete the email immediately without clicking the attachment."], correct: 2, explanation: "The '.exe' at the end means it is an executable program, not a document. It is a highly dangerous file attempting to install malware." },
+            { q: "What is the purpose of 'hovering' your mouse over a link in an email without clicking it?", options: ["It scans the link for viruses automatically.", "It reveals the actual destination URL the link will take you to.", "It copies the link to your clipboard safely."], correct: 1, explanation: "Hovering reveals the true destination. Even if the text says 'www.bank.com', the actual URL might be 'www.scam-site.net'." },
+            { q: "What is 'Smishing'?", options: ["Phishing attacks conducted via SMS/Text Messages.", "A physical attack on a computer server.", "Sending spam emails to a massive list of addresses."], correct: 0, explanation: "Smishing utilizes text messages to trick victims into clicking malicious links or calling fraudulent phone numbers on their mobile devices." }
+        ]
+    },
+    "3": {
+        title: "Malware Identification",
+        questions: [
+            { q: "While browsing, a flashing red pop-up appears stating your PC has 5 viruses and you must download their scanner. What is happening?", options: ["It's Scareware trying to trick you into downloading the actual malware.", "Your built-in antivirus has detected a genuine threat.", "Your internet provider is sending an emergency alert."], correct: 0, explanation: "Legitimate antivirus software doesn't use flashing browser pop-ups. This is a social engineering tactic designed to panic you into installing their malware." },
+            { q: "What is the primary function of 'Ransomware'?", options: ["To display unwanted advertisements on your desktop.", "To secretly log your keystrokes to steal passwords.", "To encrypt your files and demand payment to unlock them."], correct: 2, explanation: "Ransomware locks you out of your own data and extorts you for money (usually cryptocurrency) in exchange for the decryption key." },
+            { q: "How do 'Trojans' typically infect a computer?", options: ["They infect devices over the network automatically.", "They disguise themselves as legitimate software that the user voluntarily downloads and runs.", "They physically damage the computer's hard drive."], correct: 1, explanation: "Named after the Trojan Horse, this malware relies on tricking the user into executing it by masquerading as a game, utility, or update." },
+            { q: "Why is it dangerous to 'Enable Macros' on an unexpected Excel or Word document?", options: ["It corrupts the document formatting.", "Macros are small programs that attackers use to secretly download and install malware in the background.", "It shares the document with your contact list automatically."], correct: 1, explanation: "Macros have powerful system access. Malicious macros are one of the most common ways ransomware and banking trojans are deployed." },
+            { q: "What is the most effective defense against losing your files to malware or ransomware?", options: ["Keeping regular, disconnected (offline) backups of your important data.", "Paying the ransom quickly if attacked.", "Using a complex password manager."], correct: 0, explanation: "If your files are securely backed up on an external drive that isn't connected to your computer, you can wipe an infected system and restore your files without losing data or paying attackers." }
+        ]
+    },
+    "4": {
+        title: "Network Threats",
+        questions: [
+            { q: "Why is it dangerous to log into your bank account while connected to an unsecured public Wi-Fi network?", options: ["The connection speed is too slow to process encryption.", "Attackers on the same network can perform a Man-in-the-Middle (MitM) attack to intercept your traffic.", "Public routers automatically store your passwords in their cache."], correct: 1, explanation: "Unsecured networks allow attackers to eavesdrop on the traffic flowing between your device and the router, letting them steal unencrypted session data." },
+            { q: "What is the goal of a Denial-of-Service (DoS) attack?", options: ["To steal sensitive database records.", "To overwhelm a target server with traffic so it becomes unavailable to legitimate users.", "To permanently delete files from a server."], correct: 1, explanation: "DoS attacks create a massive digital traffic jam, consuming all the server's resources so real customers cannot access the site." },
+            { q: "What defines a 'Zero-Day' Exploit?", options: ["An attack that deletes all data leaving 'zero' bytes behind.", "A cyber attack occurring on a vulnerability that the software vendor is not yet aware of (zero days to fix).", "An attack conducted between midnight and 1 AM."], correct: 1, explanation: "Zero-days are highly dangerous because no patch exists for them yet, allowing attackers to exploit the flaw undetected." },
+            { q: "What does the 'S' in HTTPS stand for, and why does it matter?", options: ["System; it means the site is managed by an IT system.", "Speed; it means the site loads faster.", "Secure; it means the data transferred between your browser and the site is encrypted."], correct: 2, explanation: "HTTPS ensures that even if an attacker intercepts your network traffic, they cannot read the data (like passwords or credit cards) because it is encrypted." },
+            { q: "What is a 'Botnet'?", options: ["A network of compromised computers controlled by an attacker, often used for DDoS attacks.", "An automated customer service chat system.", "A tool used to scan for viruses on a local network."], correct: 0, explanation: "Attackers infect thousands of computers and IoT devices with malware, turning them into 'bots' that they can command to simultaneously flood a target server." }
+        ]
+    },
+    "5": {
+        title: "Cyber Defense Systems",
+        questions: [
+            { q: "What is the fundamental principle behind 'Zero-Trust Architecture'?", options: ["Trust internal network traffic, but block all external traffic.", "Never trust anything by default; explicitly verify every access request regardless of its origin.", "Disable passwords entirely and rely only on physical hardware keys."], correct: 1, explanation: "Zero-Trust assumes the network is already compromised. It requires continuous verification of the user, device, and application for every single interaction." },
+            { q: "What is the primary function of a Network Firewall?", options: ["To monitor and control incoming and outgoing network traffic based on predetermined security rules.", "To detect and remove viruses from downloaded files.", "To encrypt all data stored on the hard drive."], correct: 0, explanation: "A firewall acts as a barrier between your secure internal network and untrusted outside networks, blocking malicious traffic." },
+            { q: "What is the difference between an IDS and an IPS?", options: ["IDS is for home networks; IPS is for corporate networks.", "IDS detects unauthorized activity and alerts administrators; IPS actively blocks the activity.", "IDS encrypts data; IPS decrypts it."], correct: 1, explanation: "Intrusion Detection Systems (IDS) are passive monitors, while Intrusion Prevention Systems (IPS) take active steps to stop detected threats." },
+            { q: "What does the 'Principle of Least Privilege' mean?", options: ["Users should only be granted the minimum level of access permissions necessary to perform their jobs.", "Passwords should be as short as possible to prevent memory fatigue.", "Only executives should have access to company servers."], correct: 0, explanation: "Limiting access reduces the 'blast radius'. If an employee's account is compromised, the attacker can only access what that employee could access, protecting the rest of the network." },
+            { q: "How does a VPN (Virtual Private Network) improve security?", options: ["It blocks all advertisements.", "It creates an encrypted tunnel for your internet traffic, hiding your data and IP address from eavesdroppers.", "It automatically updates your operating system."], correct: 1, explanation: "VPNs protect your data in transit, making it incredibly difficult for attackers on the same network (like public Wi-Fi) to perform Man-in-the-Middle attacks." }
+        ]
+    },
+    "6": {
+        title: "Red Team & Ethical Hacking",
+        questions: [
+            { q: "What role does a 'Red Team' play in a cybersecurity organization?", options: ["They act as ethical hackers, simulating real-world cyber attacks to discover vulnerabilities before malicious actors do.", "They are responsible for installing physical hardware like routers and firewalls.", "They monitor network logs 24/7 and respond to incoming active threats (like a Blue Team)."], correct: 0, explanation: "The Red Team plays the role of the attacker (offensive security), testing the defenses and incident response capabilities of the organization." },
+            { q: "What is a 'Penetration Test' (Pen Test)?", options: ["Testing how long a server can run before crashing.", "An authorized, simulated cyberattack on a computer system to evaluate its security.", "A physical test of the data center's locks and doors."], correct: 1, explanation: "Organizations hire ethical hackers to perform pen tests to actively exploit vulnerabilities and provide a report on how to fix them." },
+            { q: "Why do Red Teams use 'Social Engineering' during their assessments?", options: ["Because humans are often the weakest link in security, and testing employee awareness is crucial.", "To socialize with the IT department.", "Because software vulnerabilities are too difficult to find."], correct: 0, explanation: "Even the best firewalls can't stop an employee from willingly handing over their password to a phishing email. Red teams test human vulnerability through simulated phishing and phone calls." },
+            { q: "What is the difference between a Vulnerability Scan and a Penetration Test?", options: ["They are exactly the same thing.", "A scan is automated and identifies known flaws; a pen test involves a human actively trying to exploit those flaws.", "A pen test is done by software; a scan is done manually."], correct: 1, explanation: "Scans are quick, automated checks. Pen tests are deep, manual, targeted attacks that demonstrate the actual real-world impact of a vulnerability." },
+            { q: "In cybersecurity exercises, what is the 'Blue Team'?", options: ["The team responsible for creating malware.", "The defensive security team responsible for maintaining defenses and responding to the Red Team's attacks.", "The team that handles public relations after a breach."], correct: 1, explanation: "The Blue Team is the organization's internal security staff. Red vs. Blue exercises train the Blue Team to better detect and respond to live, sophisticated threats." }
+        ]
+    }
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Get module ID from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const moduleId = urlParams.get('module');
+    
+    if (!moduleId || !allModules[moduleId]) {
+        window.location.href = 'game.html';
+        return;
+    }
+    
+    const moduleData = allModules[moduleId];
+    let currentQuestionIndex = 0;
+    let selectedOption = null;
+    
+    const titleEl = document.getElementById('module-title');
+    const progressEl = document.getElementById('progress-text');
+    const questionEl = document.getElementById('quiz-question');
+    const optionsEl = document.getElementById('quiz-options');
+    const feedbackEl = document.getElementById('quiz-feedback');
+    const feedbackHeading = document.getElementById('feedback-heading');
+    const feedbackText = document.getElementById('feedback-text');
+    const submitBtn = document.getElementById('submit-btn');
+    
+    const quizBlock = document.getElementById('quiz-block');
+    const completionScreen = document.getElementById('completion-screen');
+    
+    titleEl.textContent = moduleData.title;
+    
+    function loadQuestion() {
+        const qData = moduleData.questions[currentQuestionIndex];
+        progressEl.textContent = `Question ${currentQuestionIndex + 1} of 5`;
+        questionEl.textContent = qData.q;
+        
+        optionsEl.innerHTML = '';
+        feedbackEl.style.display = 'none';
+        submitBtn.textContent = 'Submit Answer';
+        submitBtn.disabled = true;
+        selectedOption = null;
+        
+        qData.options.forEach((optText, idx) => {
+            const optDiv = document.createElement('div');
+            optDiv.className = 'quiz-option';
+            optDiv.textContent = optText;
+            optDiv.onclick = () => {
+                if(submitBtn.textContent === 'Next Question' || submitBtn.textContent === 'Complete Module') return;
+                
+                document.querySelectorAll('.quiz-option').forEach(el => el.classList.remove('selected'));
+                optDiv.classList.add('selected');
+                selectedOption = idx;
+                submitBtn.disabled = false;
+            };
+            optionsEl.appendChild(optDiv);
+        });
+    }
+    
+    submitBtn.addEventListener('click', () => {
+        if (submitBtn.textContent === 'Next Question') {
+            currentQuestionIndex++;
+            loadQuestion();
+            return;
+        }
+        if (submitBtn.textContent === 'Complete Module') {
+            // Mark as completed in localStorage
+            localStorage.setItem('node_' + moduleId, 'completed');
+            quizBlock.style.display = 'none';
+            completionScreen.style.display = 'block';
+            return;
+        }
+        
+        // Handle Answer Submission
+        const qData = moduleData.questions[currentQuestionIndex];
+        if (selectedOption === qData.correct) {
+            // Correct
+            feedbackEl.className = 'quiz-feedback success';
+            feedbackHeading.textContent = '✔️ Correct!';
+            feedbackText.textContent = qData.explanation;
+            feedbackEl.style.display = 'block';
+            
+            if (currentQuestionIndex === 4) {
+                submitBtn.textContent = 'Complete Module';
+            } else {
+                submitBtn.textContent = 'Next Question';
+            }
+            
+            // Lock options
+            document.querySelectorAll('.quiz-option').forEach(el => {
+                if (!el.classList.contains('selected')) el.style.opacity = '0.5';
+                el.style.cursor = 'default';
+            });
+        } else {
+            // Incorrect
+            feedbackEl.className = 'quiz-feedback error';
+            feedbackHeading.textContent = '❌ Incorrect';
+            feedbackText.textContent = "That's not right. Try selecting a different answer.";
+            feedbackEl.style.display = 'block';
+            
+            feedbackEl.animate([
+                { transform: 'translateX(0)' }, { transform: 'translateX(-5px)' },
+                { transform: 'translateX(5px)' }, { transform: 'translateX(0)' }
+            ], { duration: 300 });
+            
+            submitBtn.disabled = true;
+            document.querySelectorAll('.quiz-option').forEach(el => el.classList.remove('selected'));
+            selectedOption = null;
+        }
+    });
+    
+    loadQuestion();
+
+    // Dystopian Nav Effect
+    const nav = document.querySelector('nav');
+    nav.style.overflow = 'hidden';
+    const canvas = document.createElement('canvas');
+    canvas.style.position = 'absolute';
+    canvas.style.top = '0'; canvas.style.left = '0';
+    canvas.style.width = '100%'; canvas.style.height = '100%';
+    canvas.style.opacity = '0.3'; canvas.style.pointerEvents = 'none';
+    nav.insertBefore(canvas, nav.firstChild);
+    const ctx = canvas.getContext('2d');
+    let width, height, drops;
+    function resize() {
+        width = canvas.width = nav.offsetWidth;
+        height = canvas.height = nav.offsetHeight;
+        drops = Array(Math.floor(width / 15)).fill(1);
+    }
+    window.addEventListener('resize', resize);
+    resize();
+    const chars = '0101010101X&#@%CYBER'.split('');
+    function draw() {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+        ctx.fillRect(0, 0, width, height);
+        ctx.fillStyle = '#00f7ff';
+        ctx.font = '12px Orbitron';
+        for(let i = 0; i < drops.length; i++) {
+            const text = chars[Math.floor(Math.random() * chars.length)];
+            ctx.fillText(text, i * 15, drops[i] * 15);
+            if(drops[i] * 15 > height && Math.random() > 0.9) drops[i] = 0;
+            drops[i]++;
+        }
+    }
+    setInterval(draw, 50);
+});
+</script>
+</body>
+</html>

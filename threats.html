@@ -17,8 +17,9 @@ nav .logo{
   text-decoration: none;
   margin-left: 0;
 }
-nav a{color:white;margin-left:20px;text-decoration:none;font-weight:600;transition:color 0.3s ease;}
-nav a:hover{color:#00f7ff;}
+.nav-links { display: flex; flex: 1; justify-content: space-evenly; margin-left: 40px; flex-wrap: wrap; gap: 10px; }
+.nav-links a { color:white; padding:10px 20px; border-radius:25px; background:rgba(0, 247, 255, 0.15); border:1px solid rgba(0, 247, 255, 0.4); text-decoration:none; font-weight:600; transition:all 0.3s ease; text-align: center; }
+.nav-links a:hover { color:#00f7ff; background:rgba(0, 247, 255, 0.3); border-color:#00f7ff; transform:translateY(-2px); box-shadow:0 4px 15px rgba(0, 247, 255, 0.3); }
 .section{padding:40px;max-width:1200px;margin: 0 auto;}
 .section h2{font-size:2.5rem;margin-bottom:40px;text-align:center;font-family:Orbitron;color:#00f7ff;}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:30px;}
@@ -100,40 +101,28 @@ border-color: #00f7ff;
   100% { transform: scale(4) translateZ(0); opacity: 0; }
 }
 
-.nav-group {
-  display: flex;
-  align-items: center;
-}
-
 @media (max-width: 768px) {
   nav {
     flex-direction: column;
     gap: 10px;
     padding: 15px;
   }
-  .nav-group {
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 10px 15px;
-  }
-  nav a {
-    margin-left: 0;
-  }
+  .nav-links { margin-left: 0; width: 100%; justify-content: center; gap: 10px; }
+  .nav-links a { padding: 8px 12px; font-size: 0.9rem; }
 }
 </style>
 </head>
 <body>
 
 <nav>
-<div class="nav-group">
   <a href="index.html" class="logo" onclick="triggerUnlock(event, this.href)">CyberShield</a>
-  <a href="phishing.html" onclick="triggerUnlock(event, this.href)">Phishing</a>
-  <a href="malware.html" onclick="triggerUnlock(event, this.href)">Malware</a>
-  <a href="passwords.html" onclick="triggerUnlock(event, this.href)">Passwords</a>
-</div>
-<div class="nav-group">
-  <a href="threats.html" onclick="triggerUnlock(event, this.href)">Threats</a>
-</div>
+  <div class="nav-links">
+    <a href="phishing.html" onclick="triggerUnlock(event, this.href)">Phishing</a>
+    <a href="malware.html" onclick="triggerUnlock(event, this.href)">Malware</a>
+    <a href="passwords.html" onclick="triggerUnlock(event, this.href)">Passwords</a>
+    <a href="game.html" onclick="triggerUnlock(event, this.href)">Skill Tree</a>
+    <a href="threats.html" onclick="triggerUnlock(event, this.href)">Threats</a>
+  </div>
 </nav>
 
 <section class="section">
@@ -226,6 +215,44 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+// Dystopian Nav Effect
+(function() {
+    const nav = document.querySelector('nav');
+    nav.style.overflow = 'hidden';
+    const canvas = document.createElement('canvas');
+    canvas.style.position = 'absolute';
+    canvas.style.top = '0';
+    canvas.style.left = '0';
+    canvas.style.width = '100%';
+    canvas.style.height = '100%';
+    canvas.style.opacity = '0.3';
+    canvas.style.pointerEvents = 'none';
+    nav.insertBefore(canvas, nav.firstChild);
+    const ctx = canvas.getContext('2d');
+    let width, height, drops;
+    function resize() {
+        width = canvas.width = nav.offsetWidth;
+        height = canvas.height = nav.offsetHeight;
+        drops = Array(Math.floor(width / 15)).fill(1);
+    }
+    window.addEventListener('resize', resize);
+    resize();
+    const chars = '0101010101X&#@%CYBER'.split('');
+    function draw() {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+        ctx.fillRect(0, 0, width, height);
+        ctx.fillStyle = '#00f7ff';
+        ctx.font = '12px Orbitron';
+        for(let i = 0; i < drops.length; i++) {
+            const text = chars[Math.floor(Math.random() * chars.length)];
+            ctx.fillText(text, i * 15, drops[i] * 15);
+            if(drops[i] * 15 > height && Math.random() > 0.9) drops[i] = 0;
+            drops[i]++;
+        }
+    }
+    setInterval(draw, 50);
+})();
 </script>
 
 </body>

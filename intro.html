@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>MitM Attack | CyberShield</title>
+<title>Intro to Cybersecurity | CyberShield</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Inter,sans-serif;}
@@ -25,15 +25,6 @@ nav .logo{font-family:Orbitron;color:#00f7ff;font-size: 2em;font-weight: bold;te
 .cta{margin-top:40px;padding:14px 28px;background:#00f7ff;color:black;border-radius:30px;text-decoration:none;font-weight:bold;transition:all 0.3s ease;display: inline-block; border:none; cursor:pointer; font-size:1rem;}
 .cta:hover{transform:translateY(-3px) scale(1.05);box-shadow:0 10px 20px rgba(0, 247, 255, 0.4);}
 
-.slideshow-container { background: rgba(2, 4, 10, 0.6); border: 1px solid rgba(0, 247, 255, 0.3); border-radius: 12px; padding: 25px; margin-bottom: 25px; position: relative; box-shadow: inset 0 0 20px rgba(0,0,0,0.5); }
-.slide { display: none; min-height: 80px; animation: slideFade 0.4s ease-out; font-size: 1.1rem; line-height: 1.6; }
-.slide.active { display: block; }
-.slide-controls { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; border-top: 1px solid rgba(0, 247, 255, 0.2); padding-top: 15px; }
-.slide-btn { background: rgba(0, 247, 255, 0.1); color: #00f7ff; border: 1px solid rgba(0, 247, 255, 0.3); padding: 8px 16px; border-radius: 20px; cursor: pointer; transition: all 0.3s ease; font-weight: bold; font-size: 0.95rem; }
-.slide-btn:hover { background: rgba(0, 247, 255, 0.3); transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,247,255,0.2); }
-.slide-counter { color: rgba(255,255,255,0.7); font-size: 0.95rem; font-family: Orbitron; }
-@keyframes slideFade { from { opacity: 0; transform: translateX(15px); } to { opacity: 1; transform: translateX(0); } }
-
 footer{text-align:center;padding:20px;margin-top:40px;border-top:1px solid rgba(0, 247, 255, 0.2);opacity:0.8;font-size:0.9rem;}
 footer a{color:#00f7ff;text-decoration:none;font-weight:600;}
 footer a:hover{text-decoration:underline;}
@@ -50,8 +41,6 @@ footer a:hover{text-decoration:underline;}
 .keyhole {width: 14px; height: 14px; background: rgba(2, 4, 10, 0.8); border-radius: 50%; position: relative;}
 .keyhole::after {content: ''; position: absolute; top: 8px; left: 4px;width: 6px; height: 14px; background: rgba(2, 4, 10, 0.8); border-radius: 2px;}
 @keyframes zoomInUnlock {0% { transform: scale(1) translateZ(0); opacity: 1; }20% { transform: scale(1.1) translateZ(0); opacity: 1; }100% { transform: scale(4) translateZ(0); opacity: 0; }}
-.video-container {position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 20px; border: 1px solid rgba(0, 247, 255, 0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.5); margin-top: 40px; opacity: 0; animation: slideUp 0.8s ease-out 0.2s forwards;}
-.video-container iframe {position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;}
 @media (max-width: 768px) {nav {flex-direction: column;gap: 15px;padding: 15px;} .nav-links {margin-left: 0; width: 100%; justify-content: center; gap: 5px;} .nav-links a {padding: 6px 10px; font-size: 0.8rem;} .nav-arrow { font-size: 0.9rem; }}
 </style>
 </head>
@@ -60,7 +49,7 @@ footer a:hover{text-decoration:underline;}
 <nav>
   <a href="index.html" class="logo" onclick="triggerUnlock(event, this.href)">CyberShield</a>
   <div class="nav-links">
-    <a href="intro.html" onclick="triggerUnlock(event, this.href)">Intro</a>
+    <a href="intro.html" onclick="triggerUnlock(event, this.href)" class="active">Intro</a>
     <span class="nav-arrow">➔</span>
     <a href="passwords.html" onclick="triggerUnlock(event, this.href)">Passwords</a>
     <span class="nav-arrow">➔</span>
@@ -77,36 +66,26 @@ footer a:hover{text-decoration:underline;}
 </nav>
 
 <section class="section">
+  <div style="text-align: left; margin-bottom: 20px;">
+    <a href="learn.html" onclick="triggerUnlock(event, () => { if(window.history.length > 1 && document.referrer.includes(window.location.host)) history.back(); else window.location.href = 'learn.html'; }); return false;" class="cta" style="margin-top: 0;">&larr; Go Back</a>
+  </div>
 
-<div style="text-align: left; margin-bottom: 20px;">
-<a href="threats.html" onclick="triggerUnlock(event, () => { if(window.history.length > 1 && document.referrer.includes(window.location.host)) history.back(); else window.location.href = 'threats.html'; }); return false;" class="cta" style="margin-top: 0;">&larr; Go Back</a>
-</div>
+  <h2>Introduction to Cybersecurity</h2>
 
-<h2>Man-in-the-Middle (MitM)</h2>
-
-<div class="info-box">
-<p>A Man-in-the-Middle (MitM) attack occurs when a perpetrator secretly intercepts and relays communications between two parties who believe they are communicating directly with each other. The attacker acts as a hidden eavesdropper.</p>
-
-<h3 style="margin-top:20px;">How it happens:</h3>
-<div class="slideshow-container">
-<div class="slide active"><strong>Unsecured Public Wi-Fi:</strong> Attackers set up rogue Wi-Fi hotspots (e.g., "Free Airport Wi-Fi"). When you connect, all your unencrypted data passes through their machine.</div>
-<div class="slide"><strong>ARP Spoofing:</strong> On a local network, an attacker tricks your device into believing their computer is the network router, allowing them to route your traffic through themselves.</div>
-<div class="slide"><strong>Session Hijacking:</strong> The attacker intercepts the session cookie between your browser and a website, allowing them to impersonate your logged-in session.</div>
-<div class="slide-controls">
-<button class="slide-btn" onclick="changeSlide(this, -1)">&#10094; Prev</button>
-<span class="slide-counter">1 / 3</span>
-<button class="slide-btn" onclick="changeSlide(this, 1)">Next &#10095;</button>
-</div>
-</div>
-
-<h3>Solutions:</h3>
-<p>Always ensure you are using encrypted connections (look for "HTTPS" and the padlock icon in your browser). Avoid accessing sensitive accounts like banking on public Wi-Fi networks unless you are using a reputable Virtual Private Network (VPN), which encrypts your data tunnel. Enabling Multi-Factor Authentication (MFA) also ensures that even if a password is intercepted, the attacker cannot log in to your account.</p>
-</div>
-
-<div class="video-container">
-<iframe src="https://www.youtube.com/embed/83LOa-dYi_A" title="What is a Man in the Middle Attack?" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
-
+  <div class="info-box">
+    <h3 style="margin-top:0; color:#00f7ff;">The Digital Fortress</h3>
+    <p>Imagine your digital life as a house. You have doors, windows, and a safe where you keep your most valuable possessions. Cybersecurity acts as the locks, alarms, and security guards that protect your digital house from intruders.</p>
+    
+    <h3 style="margin-top:20px;">Why Does It Matter?</h3>
+    <p>Every time you connect to the internet, you are exposed to potential threats. Hackers, scammers, and malicious software are constantly looking for open windows or weak locks to steal your personal information, money, or identity.</p>
+    
+    <h3 style="margin-top:20px;">Your Journey Begins Here</h3>
+    <p>In this learning path, you will discover how to build an impenetrable fortress around your digital life. You don't need to be a coding expert—just aware and proactive.</p>
+    
+    <div style="text-align: center; margin-top: 40px;">
+      <a href="passwords.html" onclick="triggerUnlock(event, this.href)" class="cta" style="margin-top: 0;">Next Step: Passwords ➔</a>
+    </div>
+  </div>
 </section>
 
 <footer>
@@ -124,99 +103,20 @@ footer a:hover{text-decoration:underline;}
 </div>
 
 <script>
-function changeSlide(btn, direction) {
-    const container = btn.closest('.slideshow-container');
-    const slides = container.querySelectorAll('.slide');
-    const counter = container.querySelector('.slide-counter');
-    let activeIndex = 0;
-    slides.forEach((slide, index) => {
-        if (slide.classList.contains('active')) activeIndex = index;
-        slide.classList.remove('active');
-    });
-    activeIndex += direction;
-    if (activeIndex < 0) activeIndex = slides.length - 1;
-    if (activeIndex >= slides.length) activeIndex = 0;
-    slides[activeIndex].classList.add('active');
-    counter.textContent = (activeIndex + 1) + ' / ' + slides.length;
-}
-
 function triggerUnlock(event, action) {
     if(event) event.preventDefault();
-    let isFirstTime = true;
-    let storageKey = '';
-    if (typeof action === 'string') {
-        try {
-            storageKey = 'visited_' + new URL(action, document.baseURI).pathname;
-            if (sessionStorage.getItem(storageKey)) {
-                isFirstTime = false;
-            }
-        } catch (e) {}
-    } else {
-        isFirstTime = false;
-    }
     const overlay = document.getElementById('unlock-overlay');
-    if(isFirstTime && overlay) {
-        if (storageKey) sessionStorage.setItem(storageKey, 'true');
+    if(overlay) {
         overlay.classList.add('active');
-        setTimeout(() => { 
-            if (typeof action === 'function') action();
-            else window.location.href = action; 
-        }, 450);
+        setTimeout(() => { window.location.href = action; }, 450);
     } else {
-        if (typeof action === 'function') action();
-        else window.location.href = action;
+        window.location.href = action;
     }
 }
 window.addEventListener('pageshow', () => {
     const overlay = document.getElementById('unlock-overlay');
     if(overlay) overlay.classList.remove('active');
 });
-document.addEventListener('DOMContentLoaded', () => {
-    sessionStorage.setItem('visited_' + window.location.pathname, 'true');
-    document.querySelectorAll('a').forEach(link => {
-        if (!link.hasAttribute('onclick') && link.getAttribute('href') && link.getAttribute('href') !== '#') {
-            link.addEventListener('click', (e) => triggerUnlock(e, link.href));
-        }
-    });
-});
-
-// Dystopian Nav Effect
-(function() {
-    const nav = document.querySelector('nav');
-    nav.style.overflow = 'hidden';
-    const canvas = document.createElement('canvas');
-    canvas.style.position = 'absolute';
-    canvas.style.top = '0';
-    canvas.style.left = '0';
-    canvas.style.width = '100%';
-    canvas.style.height = '100%';
-    canvas.style.opacity = '0.3';
-    canvas.style.pointerEvents = 'none';
-    nav.insertBefore(canvas, nav.firstChild);
-    const ctx = canvas.getContext('2d');
-    let width, height, drops;
-    function resize() {
-        width = canvas.width = nav.offsetWidth;
-        height = canvas.height = nav.offsetHeight;
-        drops = Array(Math.floor(width / 15)).fill(1);
-    }
-    window.addEventListener('resize', resize);
-    resize();
-    const chars = '0101010101X&#@%CYBER'.split('');
-    function draw() {
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
-        ctx.fillRect(0, 0, width, height);
-        ctx.fillStyle = '#00f7ff';
-        ctx.font = '12px Orbitron';
-        for(let i = 0; i < drops.length; i++) {
-            const text = chars[Math.floor(Math.random() * chars.length)];
-            ctx.fillText(text, i * 15, drops[i] * 15);
-            if(drops[i] * 15 > height && Math.random() > 0.9) drops[i] = 0;
-            drops[i]++;
-        }
-    }
-    setInterval(draw, 50);
-})();
 </script>
 </body>
 </html>

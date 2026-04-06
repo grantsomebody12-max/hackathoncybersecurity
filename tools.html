@@ -8,6 +8,8 @@
 body{background: linear-gradient(270deg,#02040a,#071a2f,#02040a);background-size:600% 600%;animation:bg 12s ease infinite;color:white;padding-top: 80px;}
 @keyframes bg{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 @keyframes slideUp{0%{opacity:0;transform:translateY(40px);}100%{opacity:1;transform:translateY(0);}}
+@keyframes slideUpText { 0% { opacity: 0; transform: translateY(15px); } 100% { opacity: 1; transform: translateY(0); } }
+h1, h2, h3, p, li, .quiz-question, .quiz-option, .scenario-title, .scenario-desc, .b-title, .level-title, .progress { opacity: 0; animation: slideUpText 0.8s ease-out forwards; }
 @keyframes gaugePulse{
 0%{box-shadow:0 0 15px var(--gauge-color, #22c55e);transform:scale(1);}
 50%{box-shadow:0 0 40px var(--gauge-color, #22c55e);transform:scale(1.03);}
@@ -22,17 +24,20 @@ nav .logo{
   text-decoration: none;
   margin-left: 0;
 }
-.nav-links { display: flex; flex: 1; justify-content: space-evenly; margin-left: 40px; flex-wrap: wrap; gap: 10px; }
-.nav-links a { color:white; padding:10px 20px; border-radius:25px; background:rgba(0, 247, 255, 0.15); border:1px solid rgba(0, 247, 255, 0.4); text-decoration:none; font-weight:600; transition:all 0.3s ease; text-align: center; }
+.nav-links { display: flex; flex: 1; justify-content: center; align-items: center; margin-left: 40px; flex-wrap: wrap; gap: 10px; }
+.nav-links a { color:white; padding:8px 16px; border-radius:20px; background:rgba(0, 247, 255, 0.1); border:1px solid rgba(0, 247, 255, 0.3); text-decoration:none; font-weight:600; transition:all 0.3s ease; text-align: center; font-size: 0.95rem; }
 .nav-links a:hover { color:#00f7ff; background:rgba(0, 247, 255, 0.3); border-color:#00f7ff; transform:translateY(-2px); box-shadow:0 4px 15px rgba(0, 247, 255, 0.3); }
+.nav-links a.active { background:rgba(0, 247, 255, 0.4); border-color:#00f7ff; box-shadow:0 0 10px rgba(0, 247, 255, 0.5); color:#fff; text-shadow: 0 0 5px rgba(255,255,255,0.5); }
+.nav-arrow { color: rgba(0, 247, 255, 0.5); font-size: 1.2rem; animation: pulseArrow 2s infinite; }
+@keyframes pulseArrow { 0%, 100% { transform: translateX(0); opacity: 0.5; } 50% { transform: translateX(3px); opacity: 1; } }
 .section{padding:40px;width:80%;max-width:1400px;margin: 0 auto;text-align:center;}
 .section h2{font-size:2.5rem;margin-bottom:20px;font-family:Orbitron;color:#00f7ff;}
-.tool-container{background:rgba(255,255,255,0.05);padding:40px;border-radius:20px;border: 1px solid rgba(0, 247, 255, 0.3);text-align:left;box-shadow:0 10px 30px rgba(0,0,0,0.5);opacity:0;animation:slideUp 0.8s ease-out forwards;}
+.tool-container{background:rgba(13, 24, 41, 0.7);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:40px;border-radius:20px;border: 1px solid rgba(0, 247, 255, 0.2);text-align:left;box-shadow:0 8px 32px 0 rgba(0,0,0,0.5);opacity:0;animation:slideUp 0.8s ease-out forwards;}
 .cta{margin-top:20px;padding:14px 28px;background:#00f7ff;color:black;border-radius:30px;text-decoration:none;font-weight:bold;transition:all 0.3s ease;display: inline-block; border:none; cursor:pointer; font-size:1rem;}
 .cta:hover{transform:translateY(-3px) scale(1.05);box-shadow:0 10px 20px rgba(0, 247, 255, 0.4);}
 textarea{width:100%;min-height:200px;background:rgba(0,0,0,0.5);border:1px solid #00f7ff;border-radius:10px;padding:15px;color:white;font-size:1.1rem;margin-bottom:20px;resize:vertical;}
 textarea:focus{outline:none;box-shadow:0 0 15px rgba(0, 247, 255, 0.5);}
-.results-box{margin-top:30px;padding:20px;border-radius:10px;background:rgba(0,0,0,0.3);display:none;}
+.results-box{margin-top:30px;padding:20px;border-radius:12px;background:rgba(2, 4, 10, 0.6);border:1px solid rgba(0, 247, 255, 0.2);display:none;box-shadow:inset 0 0 20px rgba(0,0,0,0.5);}
 .results-box h3{font-family:Orbitron;margin-bottom:15px;}
 .results-box ul{list-style-type:none;padding-left:0;}
 .results-box li{background:rgba(255,255,255,0.08);padding:10px;border-radius:5px;margin-bottom:8px;border-left:3px solid #ef4444;}
@@ -41,6 +46,10 @@ textarea:focus{outline:none;box-shadow:0 0 15px rgba(0, 247, 255, 0.5);}
 .gauge-container{position:relative;width:270px;height:270px;margin:0 auto 20px;border-radius:50%;background:conic-gradient(var(--gauge-color, #22c55e) var(--percentage, 0%), rgba(255,255,255,0.1) 0);display:flex;align-items:center;justify-content:center;animation:gaugePulse 2s infinite ease-in-out;}
 .gauge-inner{width:230px;height:230px;background:#0d1829;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:Orbitron,sans-serif;font-size:3.5rem;font-weight:bold;}
 .gauge-label{font-size:1.2rem;font-family:Inter,sans-serif;font-weight:normal;opacity:0.8;margin-top:5px;}
+
+footer{text-align:center;padding:20px;margin-top:40px;border-top:1px solid rgba(0, 247, 255, 0.2);opacity:0.8;font-size:0.9rem;}
+footer a{color:#00f7ff;text-decoration:none;font-weight:600;}
+footer a:hover{text-decoration:underline;}
 
 /* Lock Animation */
 #unlock-overlay {
@@ -111,8 +120,9 @@ textarea:focus{outline:none;box-shadow:0 0 15px rgba(0, 247, 255, 0.5);}
     gap: 10px;
     padding: 15px;
   }
-  .nav-links { margin-left: 0; width: 100%; justify-content: center; gap: 10px; }
-  .nav-links a { padding: 8px 12px; font-size: 0.9rem; }
+  .nav-links { margin-left: 0; width: 100%; justify-content: center; gap: 5px; }
+  .nav-links a { padding: 6px 10px; font-size: 0.8rem; }
+  .nav-arrow { font-size: 0.9rem; }
   .tool-split {
     grid-template-columns: 1fr;
   }
@@ -124,11 +134,19 @@ textarea:focus{outline:none;box-shadow:0 0 15px rgba(0, 247, 255, 0.5);}
 <nav>
   <a href="index.html" class="logo" onclick="triggerUnlock(event, this.href)">CyberShield</a>
   <div class="nav-links">
-    <a href="phishing.html" onclick="triggerUnlock(event, this.href)">Phishing</a>
-    <a href="malware.html" onclick="triggerUnlock(event, this.href)">Malware</a>
+    <a href="intro.html" onclick="triggerUnlock(event, this.href)">Intro</a>
+    <span class="nav-arrow">➔</span>
     <a href="passwords.html" onclick="triggerUnlock(event, this.href)">Passwords</a>
-    <a href="game.html" onclick="triggerUnlock(event, this.href)">Skill Tree</a>
+    <span class="nav-arrow">➔</span>
+    <a href="phishing.html" onclick="triggerUnlock(event, this.href)">Phishing & Malware</a>
+    <span class="nav-arrow">➔</span>
+    <a href="safe-browsing.html" onclick="triggerUnlock(event, this.href)">Safe Browsing</a>
+    <span class="nav-arrow">➔</span>
     <a href="threats.html" onclick="triggerUnlock(event, this.href)">Threats</a>
+    <span class="nav-arrow">➔</span>
+    <a href="scenarios.html" onclick="triggerUnlock(event, this.href)">Scenarios</a>
+    <span class="nav-arrow">➔</span>
+    <a href="game.html" onclick="triggerUnlock(event, this.href)">🎮 Skill Tree</a>
   </div>
 </nav>
 
@@ -166,6 +184,11 @@ textarea:focus{outline:none;box-shadow:0 0 15px rgba(0, 247, 255, 0.5);}
 </div>
 
 </section>
+
+<footer>
+  <p>&copy; 2026 by TripleTech. All rights reserved.</p>
+  <p>Contact us: <a href="mailto:tripletechcybersecurity@gmail.com">tripletechcybersecurity@gmail.com</a></p>
+</footer>
 
 <div id="unlock-overlay">
   <div class="lock-icon">

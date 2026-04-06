@@ -29,6 +29,8 @@ padding-top: 80px; /* To offset the fixed nav */
 0%{opacity:0;transform:translateY(40px);}
 100%{opacity:1;transform:translateY(0);}
 }
+@keyframes slideUpText { 0% { opacity: 0; transform: translateY(15px); } 100% { opacity: 1; transform: translateY(0); } }
+h1, h2, h3, p, li, .quiz-question, .quiz-option, .scenario-title, .scenario-desc, .b-title, .level-title, .progress { opacity: 0; animation: slideUpText 0.8s ease-out forwards; }
 
 nav{
 display:flex;
@@ -52,9 +54,12 @@ text-decoration: none;
 margin-left: 0;
 }
 
-.nav-links { display: flex; flex: 1; justify-content: space-evenly; margin-left: 40px; flex-wrap: wrap; gap: 10px; }
-.nav-links a { color:white; padding:10px 20px; border-radius:25px; background:rgba(0, 247, 255, 0.15); border:1px solid rgba(0, 247, 255, 0.4); text-decoration:none; font-weight:600; transition:all 0.3s ease; text-align: center; }
+.nav-links { display: flex; flex: 1; justify-content: center; align-items: center; margin-left: 40px; flex-wrap: wrap; gap: 10px; }
+.nav-links a { color:white; padding:8px 16px; border-radius:20px; background:rgba(0, 247, 255, 0.1); border:1px solid rgba(0, 247, 255, 0.3); text-decoration:none; font-weight:600; transition:all 0.3s ease; text-align: center; font-size: 0.95rem; }
 .nav-links a:hover { color:#00f7ff; background:rgba(0, 247, 255, 0.3); border-color:#00f7ff; transform:translateY(-2px); box-shadow:0 4px 15px rgba(0, 247, 255, 0.3); }
+.nav-links a.active { background:rgba(0, 247, 255, 0.4); border-color:#00f7ff; box-shadow:0 0 10px rgba(0, 247, 255, 0.5); color:#fff; text-shadow: 0 0 5px rgba(255,255,255,0.5); }
+.nav-arrow { color: rgba(0, 247, 255, 0.5); font-size: 1.2rem; animation: pulseArrow 2s infinite; }
+@keyframes pulseArrow { 0%, 100% { transform: translateX(0); opacity: 0.5; } 50% { transform: translateX(3px); opacity: 1; } }
 
 .section{
 padding:40px;
@@ -64,11 +69,12 @@ margin: 0 auto;
 
 .section h2{
 font-size:2.5rem;
-margin-bottom:40px;
+margin-bottom:10px;
 text-align:center;
 font-family:Orbitron;
 color:#00f7ff;
 }
+.instruction-text{text-align:center;opacity:0.8;margin-bottom:40px;font-size:1.1rem;animation:slideUpText 0.8s ease-out forwards;}
 
 .cards{
 display:grid;
@@ -77,11 +83,14 @@ gap:30px;
 }
 
 .card{
-background:rgba(255,255,255,0.05);
+background:rgba(13, 24, 41, 0.7);
+backdrop-filter: blur(12px);
+-webkit-backdrop-filter: blur(12px);
 padding:30px;
 border-radius:20px;
 transition:0.3s;
-border: 1px solid rgba(255,255,255,0.1);
+border: 1px solid rgba(0, 247, 255, 0.2);
+box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
 cursor:pointer;
 opacity:0;
 animation:slideUp 0.8s ease-out forwards;
@@ -126,6 +135,10 @@ display: inline-block;
 transform:translateY(-3px) scale(1.05);
 box-shadow:0 10px 20px rgba(0, 247, 255, 0.4);
 }
+
+footer{text-align:center;padding:20px;margin-top:40px;border-top:1px solid rgba(0, 247, 255, 0.2);opacity:0.8;font-size:0.9rem;}
+footer a{color:#00f7ff;text-decoration:none;font-weight:600;}
+footer a:hover{text-decoration:underline;}
 
 /* Lock Animation */
 #unlock-overlay {
@@ -196,8 +209,9 @@ box-shadow:0 10px 20px rgba(0, 247, 255, 0.4);
     gap: 10px;
     padding: 15px;
   }
-  .nav-links { margin-left: 0; width: 100%; justify-content: center; gap: 10px; }
-  .nav-links a { padding: 8px 12px; font-size: 0.9rem; }
+  .nav-links { margin-left: 0; width: 100%; justify-content: center; gap: 5px; }
+  .nav-links a { padding: 6px 10px; font-size: 0.8rem; }
+  .nav-arrow { font-size: 0.9rem; }
 }
 </style>
 </head>
@@ -206,11 +220,19 @@ box-shadow:0 10px 20px rgba(0, 247, 255, 0.4);
 <nav>
   <a href="index.html" class="logo" onclick="triggerUnlock(event, this.href)">CyberShield</a>
   <div class="nav-links">
-    <a href="phishing.html" onclick="triggerUnlock(event, this.href)">Phishing</a>
-    <a href="malware.html" onclick="triggerUnlock(event, this.href)">Malware</a>
+    <a href="intro.html" onclick="triggerUnlock(event, this.href)">Intro</a>
+    <span class="nav-arrow">➔</span>
     <a href="passwords.html" onclick="triggerUnlock(event, this.href)">Passwords</a>
-    <a href="game.html" onclick="triggerUnlock(event, this.href)">Skill Tree</a>
+    <span class="nav-arrow">➔</span>
+    <a href="phishing.html" onclick="triggerUnlock(event, this.href)">Phishing & Malware</a>
+    <span class="nav-arrow">➔</span>
+    <a href="safe-browsing.html" onclick="triggerUnlock(event, this.href)">Safe Browsing</a>
+    <span class="nav-arrow">➔</span>
     <a href="threats.html" onclick="triggerUnlock(event, this.href)">Threats</a>
+    <span class="nav-arrow">➔</span>
+    <a href="scenarios.html" onclick="triggerUnlock(event, this.href)">Scenarios</a>
+    <span class="nav-arrow">➔</span>
+    <a href="game.html" onclick="triggerUnlock(event, this.href)">🎮 Skill Tree</a>
   </div>
 </nav>
 
@@ -221,27 +243,48 @@ box-shadow:0 10px 20px rgba(0, 247, 255, 0.4);
 </div>
 
 <h2>Learn Cybersecurity Basics</h2>
+<p class="instruction-text">Click on the modules below to start your learning journey.</p>
 
 <div class="cards">
 
-<div class="card" onclick="triggerUnlock(event, 'phishing.html')">
-<h3>Phishing</h3>
-<p>Fake emails and websites designed to steal your information. Always check the sender's address and be wary of links that ask for your login credentials or personal data.</p>
-</div>
-
-<div class="card" onclick="triggerUnlock(event, 'malware.html')">
-<h3>Malware</h3>
-<p>Malicious software that can spy on or damage your device. This includes viruses, spyware, and ransomware. Avoid downloading files from untrusted sources.</p>
+<div class="card" onclick="triggerUnlock(event, 'intro.html')">
+<h3>Intro to Cybersecurity</h3>
+<p>Understand the basics of how to protect your digital life.</p>
 </div>
 
 <div class="card" onclick="triggerUnlock(event, 'passwords.html')">
 <h3>Passwords</h3>
-<p>Strong passwords are your first line of defense. Use a mix of upper/lowercase letters, numbers, and symbols. Consider a password manager to create and store unique, complex passwords for every site.</p>
+<p>Learn how to create strong passphrases and use password managers.</p>
+</div>
+
+<div class="card" onclick="triggerUnlock(event, 'phishing.html')">
+<h3>Phishing & Malware</h3>
+<p>Identify fake emails and avoid malicious software downloads.</p>
+</div>
+
+<div class="card" onclick="triggerUnlock(event, 'safe-browsing.html')">
+<h3>Safe Browsing</h3>
+<p>Navigate the web securely using HTTPS, VPNs, and ad blockers.</p>
+</div>
+
+<div class="card" onclick="triggerUnlock(event, 'threats.html')">
+<h3>Threat Database</h3>
+<p>Explore real-world cyber attacks like Ransomware and DoS.</p>
+</div>
+
+<div class="card" onclick="triggerUnlock(event, 'scenarios.html')">
+<h3>Real-World Scenarios</h3>
+<p>Test your knowledge against practical cyber attack scenarios.</p>
 </div>
 
 </div>
 
 </section>
+
+<footer>
+  <p>&copy; 2026 by TripleTech. All rights reserved.</p>
+  <p>Contact us: <a href="mailto:tripletechcybersecurity@gmail.com">tripletechcybersecurity@gmail.com</a></p>
+</footer>
 
 <div id="unlock-overlay">
   <div class="lock-icon">

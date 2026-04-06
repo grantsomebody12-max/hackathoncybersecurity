@@ -8,6 +8,8 @@
 body{background: linear-gradient(270deg,#02040a,#071a2f,#02040a);background-size:600% 600%;animation:bg 12s ease infinite;color:white;padding-top: 80px;}
 @keyframes bg{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 @keyframes slideUp{0%{opacity:0;transform:translateY(40px);}100%{opacity:1;transform:translateY(0);}}
+@keyframes slideUpText { 0% { opacity: 0; transform: translateY(15px); } 100% { opacity: 1; transform: translateY(0); } }
+h1, h2, h3, p, li, .quiz-question, .quiz-option, .scenario-title, .scenario-desc, .b-title, .level-title, .progress { opacity: 0; animation: slideUpText 0.8s ease-out forwards; }
 @keyframes gaugePulse{
 0%{box-shadow:0 0 15px var(--gauge-color, #22c55e);transform:scale(1);}
 50%{box-shadow:0 0 40px var(--gauge-color, #22c55e);transform:scale(1.03);}
@@ -22,17 +24,39 @@ nav .logo{
   text-decoration: none;
   margin-left: 0;
 }
-.nav-links { display: flex; flex: 1; justify-content: space-evenly; margin-left: 40px; flex-wrap: wrap; gap: 10px; }
-.nav-links a { color:white; padding:10px 20px; border-radius:25px; background:rgba(0, 247, 255, 0.15); border:1px solid rgba(0, 247, 255, 0.4); text-decoration:none; font-weight:600; transition:all 0.3s ease; text-align: center; }
+.nav-links { display: flex; flex: 1; justify-content: center; align-items: center; margin-left: 40px; flex-wrap: wrap; gap: 10px; }
+.nav-links a { color:white; padding:8px 16px; border-radius:20px; background:rgba(0, 247, 255, 0.1); border:1px solid rgba(0, 247, 255, 0.3); text-decoration:none; font-weight:600; transition:all 0.3s ease; text-align: center; font-size: 0.95rem; }
 .nav-links a:hover { color:#00f7ff; background:rgba(0, 247, 255, 0.3); border-color:#00f7ff; transform:translateY(-2px); box-shadow:0 4px 15px rgba(0, 247, 255, 0.3); }
+.nav-links a.active { background:rgba(0, 247, 255, 0.4); border-color:#00f7ff; box-shadow:0 0 10px rgba(0, 247, 255, 0.5); color:#fff; text-shadow: 0 0 5px rgba(255,255,255,0.5); }
+.nav-arrow { color: rgba(0, 247, 255, 0.5); font-size: 1.2rem; animation: pulseArrow 2s infinite; }
+@keyframes pulseArrow { 0%, 100% { transform: translateX(0); opacity: 0.5; } 50% { transform: translateX(3px); opacity: 1; } }
 .section{padding:40px;width:80%;max-width:1400px;margin: 0 auto;text-align:center;}
 .section h2{font-size:2.5rem;margin-bottom:20px;font-family:Orbitron;color:#00f7ff;}
-.info-box{background:rgba(255,255,255,0.05);padding:40px;border-radius:20px;border: 1px solid rgba(0, 247, 255, 0.3);text-align:left;line-height:1.8;font-size:1.1rem;box-shadow:0 10px 30px rgba(0,0,0,0.5);opacity:0;animation:slideUp 0.8s ease-out forwards;}
+.info-box{background:rgba(13, 24, 41, 0.7);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:40px;border-radius:20px;border: 1px solid rgba(0, 247, 255, 0.2);text-align:left;line-height:1.8;font-size:1.1rem;box-shadow:0 8px 32px 0 rgba(0,0,0,0.5);opacity:0;animation:slideUp 0.8s ease-out forwards;}
 .info-box h3{color:#00f7ff;margin-top:25px;margin-bottom:10px;font-family:Orbitron;font-size:1.4rem;}
 .cta{margin-top:40px;padding:14px 28px;background:#00f7ff;color:black;border-radius:30px;text-decoration:none;font-weight:bold;transition:all 0.3s ease;display: inline-block; border:none; cursor:pointer; font-size:1rem;}
 .cta:hover{transform:translateY(-3px) scale(1.05);box-shadow:0 10px 20px rgba(0, 247, 255, 0.4);}
 
-.tool-container{background:rgba(255,255,255,0.05);padding:40px;border-radius:20px;border: 1px solid rgba(0, 247, 255, 0.3);text-align:left;box-shadow:0 10px 30px rgba(0,0,0,0.5);margin-top:40px;opacity:0;animation:slideUp 0.8s ease-out 0.4s forwards;}
+.scenario-client{background:rgba(2, 4, 10, 0.6);color:#e2e8f0;border:1px solid rgba(0, 247, 255, 0.3);box-shadow:inset 0 0 20px rgba(0,0,0,0.5);text-align:left;border-radius:12px;overflow:hidden;margin-bottom:20px;padding:20px;min-height:150px;display:flex;flex-direction:column;justify-content:center;}
+.scenario-title{font-size:1.3rem;font-weight:bold;margin-bottom:10px;color:#ef4444;}
+.scenario-desc{font-size:1.1rem;line-height:1.6;}
+.btn-safe{background:#22c55e;color:white;}
+.btn-malware{background:#ef4444;color:white;}
+
+.slideshow-container { background: rgba(2, 4, 10, 0.6); border: 1px solid rgba(0, 247, 255, 0.3); border-radius: 12px; padding: 25px; margin-bottom: 25px; position: relative; box-shadow: inset 0 0 20px rgba(0,0,0,0.5); }
+.slide { display: none; min-height: 80px; animation: slideFade 0.4s ease-out; font-size: 1.1rem; line-height: 1.6; }
+.slide.active { display: block; }
+.slide-controls { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; border-top: 1px solid rgba(0, 247, 255, 0.2); padding-top: 15px; }
+.slide-btn { background: rgba(0, 247, 255, 0.1); color: #00f7ff; border: 1px solid rgba(0, 247, 255, 0.3); padding: 8px 16px; border-radius: 20px; cursor: pointer; transition: all 0.3s ease; font-weight: bold; font-size: 0.95rem; }
+.slide-btn:hover { background: rgba(0, 247, 255, 0.3); transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,247,255,0.2); }
+.slide-counter { color: rgba(255,255,255,0.7); font-size: 0.95rem; font-family: Orbitron; }
+@keyframes slideFade { from { opacity: 0; transform: translateX(15px); } to { opacity: 1; transform: translateX(0); } }
+
+footer{text-align:center;padding:20px;margin-top:40px;border-top:1px solid rgba(0, 247, 255, 0.2);opacity:0.8;font-size:0.9rem;}
+footer a{color:#00f7ff;text-decoration:none;font-weight:600;}
+footer a:hover{text-decoration:underline;}
+
+.tool-container{background:rgba(13, 24, 41, 0.7);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:40px;border-radius:20px;border: 1px solid rgba(0, 247, 255, 0.2);text-align:left;box-shadow:0 8px 32px 0 rgba(0,0,0,0.5);margin-top:40px;opacity:0;animation:slideUp 0.8s ease-out 0.4s forwards;}
 textarea{width:100%;min-height:200px;background:rgba(0,0,0,0.5);border:1px solid #00f7ff;border-radius:10px;padding:15px;color:white;font-size:1.1rem;margin-bottom:20px;resize:vertical;}
 textarea:focus{outline:none;box-shadow:0 0 15px rgba(0, 247, 255, 0.5);}
 .results-box{margin-top:30px;padding:20px;border-radius:10px;background:rgba(0,0,0,0.3);display:none;}
@@ -44,9 +68,9 @@ textarea:focus{outline:none;box-shadow:0 0 15px rgba(0, 247, 255, 0.5);}
 .gauge-container{position:relative;width:270px;height:270px;margin:0 auto 20px;border-radius:50%;background:conic-gradient(var(--gauge-color, #22c55e) var(--percentage, 0%), rgba(255,255,255,0.1) 0);display:flex;align-items:center;justify-content:center;animation:gaugePulse 2s infinite ease-in-out;}
 .gauge-inner{width:230px;height:230px;background:#0d1829;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:Orbitron,sans-serif;font-size:3.5rem;font-weight:bold;}
 .gauge-label{font-size:1.2rem;font-family:Inter,sans-serif;font-weight:normal;opacity:0.8;margin-top:5px;}
-.game-container{background:rgba(255,255,255,0.05);padding:30px;border-radius:20px;border: 1px solid rgba(0, 247, 255, 0.3);margin-top:40px;box-shadow:0 10px 30px rgba(0,0,0,0.5);opacity:0;animation:slideUp 0.8s ease-out 0.2s forwards;}
-.email-client{background:white;color:black;text-align:left;border-radius:10px;overflow:hidden;margin-bottom:20px;}
-.email-header{background:#f1f3f4;padding:15px;border-bottom:1px solid #ddd;}
+.game-container{background:rgba(13, 24, 41, 0.7);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:30px;border-radius:20px;border: 1px solid rgba(0, 247, 255, 0.2);margin-top:40px;box-shadow:0 8px 32px 0 rgba(0,0,0,0.5);opacity:0;animation:slideUp 0.8s ease-out 0.2s forwards;}
+.email-client{background:rgba(2, 4, 10, 0.6);color:#e2e8f0;border:1px solid rgba(0, 247, 255, 0.3);box-shadow:inset 0 0 20px rgba(0,0,0,0.5);text-align:left;border-radius:12px;overflow:hidden;margin-bottom:20px;}
+.email-header{background:rgba(255,255,255,0.05);padding:15px;border-bottom:1px solid rgba(0, 247, 255, 0.2);}
 .email-header p{margin:5px 0;font-size:1rem;}
 .email-body{padding:20px;font-size:1.1rem;line-height:1.6;min-height:150px;}
 .game-controls{display:flex;justify-content:center;gap:20px;}
@@ -130,8 +154,9 @@ textarea:focus{outline:none;box-shadow:0 0 15px rgba(0, 247, 255, 0.5);}
     gap: 10px;
     padding: 15px;
   }
-  .nav-links { margin-left: 0; width: 100%; justify-content: center; gap: 10px; }
-  .nav-links a { padding: 8px 12px; font-size: 0.9rem; }
+  .nav-links { margin-left: 0; width: 100%; justify-content: center; gap: 5px; }
+  .nav-links a { padding: 6px 10px; font-size: 0.8rem; }
+  .nav-arrow { font-size: 0.9rem; }
   .tool-split {
     grid-template-columns: 1fr;
   }
@@ -143,11 +168,19 @@ textarea:focus{outline:none;box-shadow:0 0 15px rgba(0, 247, 255, 0.5);}
 <nav>
   <a href="index.html" class="logo" onclick="triggerUnlock(event, this.href)">CyberShield</a>
   <div class="nav-links">
-    <a href="phishing.html" onclick="triggerUnlock(event, this.href)">Phishing</a>
-    <a href="malware.html" onclick="triggerUnlock(event, this.href)">Malware</a>
+    <a href="intro.html" onclick="triggerUnlock(event, this.href)">Intro</a>
+    <span class="nav-arrow">➔</span>
     <a href="passwords.html" onclick="triggerUnlock(event, this.href)">Passwords</a>
-    <a href="game.html" onclick="triggerUnlock(event, this.href)">Skill Tree</a>
+    <span class="nav-arrow">➔</span>
+    <a href="phishing.html" onclick="triggerUnlock(event, this.href)" class="active">Phishing & Malware</a>
+    <span class="nav-arrow">➔</span>
+    <a href="safe-browsing.html" onclick="triggerUnlock(event, this.href)">Safe Browsing</a>
+    <span class="nav-arrow">➔</span>
     <a href="threats.html" onclick="triggerUnlock(event, this.href)">Threats</a>
+    <span class="nav-arrow">➔</span>
+    <a href="scenarios.html" onclick="triggerUnlock(event, this.href)">Scenarios</a>
+    <span class="nav-arrow">➔</span>
+    <a href="game.html" onclick="triggerUnlock(event, this.href)">🎮 Skill Tree</a>
   </div>
 </nav>
 
@@ -157,17 +190,23 @@ textarea:focus{outline:none;box-shadow:0 0 15px rgba(0, 247, 255, 0.5);}
 <a href="learn.html" onclick="triggerUnlock(event, () => { if(window.history.length > 1 && document.referrer.includes(window.location.host)) history.back(); else window.location.href = 'learn.html'; }); return false;" class="cta" style="margin-top: 0;">&larr; Go Back</a>
 </div>
 
-<h2>Phishing</h2>
+<h2>Phishing & Malware</h2>
 
 <div class="info-box">
+<h3 style="margin-top:0; color:#00f7ff;">Part 1: Phishing</h3>
 <p>Phishing is a type of social engineering attack often used to steal user data, including login credentials and credit card numbers. It occurs when an attacker, masquerading as a trusted entity, dupes a victim into opening an email, instant message, or text message. The recipient is then tricked into clicking a malicious link, which can lead to the installation of malware, the freezing of the system as part of a ransomware attack, or the revealing of sensitive information.</p>
 
 <h3 style="margin-top:20px;">Common Types of Phishing:</h3>
-<ul style="margin-left: 20px; margin-bottom: 20px;">
-<li style="padding-bottom: 10px;"><strong>Spear Phishing:</strong> Targeted at specific individuals or companies, using gathered personal info to seem highly legitimate.</li>
-<li style="padding-bottom: 10px;"><strong>Whaling:</strong> A form of spear phishing aimed at high-profile targets like senior executives.</li>
-<li><strong>Smishing:</strong> Phishing conducted via SMS/text messages.</li>
-</ul>
+<div class="slideshow-container">
+<div class="slide active"><strong>Spear Phishing:</strong> Targeted at specific individuals or companies, using gathered personal info to seem highly legitimate.</div>
+<div class="slide"><strong>Whaling:</strong> A form of spear phishing aimed at high-profile targets like senior executives.</div>
+<div class="slide"><strong>Smishing:</strong> Phishing conducted via SMS/text messages.</div>
+<div class="slide-controls">
+<button class="slide-btn" onclick="changeSlide(this, -1)">&#10094; Prev</button>
+<span class="slide-counter">1 / 3</span>
+<button class="slide-btn" onclick="changeSlide(this, 1)">Next &#10095;</button>
+</div>
+</div>
 
 <h3>How to spot it:</h3>
 <p>Look for urgent or threatening language, unexpected attachments, or slightly misspelled email domains (like @pay-paI.com instead of @paypal.com). Generic greetings like "Dear Customer" instead of your actual name are also major red flags.</p>
@@ -239,7 +278,62 @@ textarea:focus{outline:none;box-shadow:0 0 15px rgba(0, 247, 255, 0.5);}
 </div>
 </div>
 
+<div class="info-box" style="margin-top: 40px;">
+<h3 style="margin-top:0; color:#00f7ff;">Part 2: Malware</h3>
+<p>Malware, short for malicious software, is an umbrella term for any software designed to cause disruption to a computer, leak private information, or gain unauthorized access to systems. Once installed, malware can quietly steal your passwords, log your keystrokes, or lock you out of your own files entirely.</p>
+
+<h3 style="margin-top:20px;">Common Types of Malware:</h3>
+<div class="slideshow-container">
+<div class="slide active"><strong>Trojans:</strong> Malware disguised as legitimate software. Users are tricked into downloading and executing them.</div>
+<div class="slide"><strong>Ransomware:</strong> Encrypts your files so you can't access them, then demands a ransom payment to unlock them.</div>
+<div class="slide"><strong>Spyware:</strong> Secretly observes your computer activities and reports them to the attacker.</div>
+<div class="slide"><strong>Adware:</strong> Aggressively displays unwanted advertisements, sometimes acting as a gateway to worse infections.</div>
+<div class="slide-controls">
+<button class="slide-btn" onclick="changeSlide(this, -1)">&#10094; Prev</button>
+<span class="slide-counter">1 / 4</span>
+<button class="slide-btn" onclick="changeSlide(this, 1)">Next &#10095;</button>
+</div>
+</div>
+
+<h3>How to stay safe:</h3>
+<p>Always keep your operating system and antivirus software up to date. Avoid downloading files from untrusted websites, never click on unexpected pop-ups claiming your device is infected, and be extremely careful with email attachments even from people you know.</p>
+</div>
+
+<div class="game-container">
+<h3 style="font-family:Orbitron; color:#00f7ff; margin-bottom: 10px; font-size: 1.8rem;">Safe or Malware?</h3>
+<p style="margin-bottom: 20px; opacity: 0.8;">Read the scenario below and decide if the action is safe or a malware risk.</p>
+
+<div id="malware-display">
+<div class="scenario-client">
+<div class="scenario-title" id="malware-scenario-title"></div>
+<div class="scenario-desc" id="malware-scenario-desc"></div>
+</div>
+
+<div class="game-controls" id="malware-controls">
+<button class="btn-game btn-safe" onclick="checkMalwareAnswer(false)">Safe</button>
+<button class="btn-game btn-malware" onclick="checkMalwareAnswer(true)">Malware Risk</button>
+</div>
+</div>
+
+<div id="malware-feedback" class="feedback">
+<h3 id="malware-feedback-title"></h3>
+<p id="malware-feedback-text"></p>
+<button class="cta" onclick="nextMalware()" style="margin-top: 0;">Next Scenario</button>
+</div>
+
+<div id="malware-game-over" class="feedback" style="text-align:center;">
+<h3 style="color:#00f7ff; border:none; background:transparent;">Game Over!</h3>
+<p id="malware-final-score" style="font-size: 1.3rem; font-weight: bold;"></p>
+<button class="cta" onclick="restartMalwareGame()" style="margin-top: 0;">Play Again</button>
+</div>
+</div>
+
 </section>
+
+<footer>
+  <p>&copy; 2026 by TripleTech. All rights reserved.</p>
+  <p>Contact us: <a href="mailto:tripletechcybersecurity@gmail.com">tripletechcybersecurity@gmail.com</a></p>
+</footer>
 
 </body>
 
@@ -253,6 +347,22 @@ textarea:focus{outline:none;box-shadow:0 0 15px rgba(0, 247, 255, 0.5);}
 </div>
 
 <script>
+function changeSlide(btn, direction) {
+    const container = btn.closest('.slideshow-container');
+    const slides = container.querySelectorAll('.slide');
+    const counter = container.querySelector('.slide-counter');
+    let activeIndex = 0;
+    slides.forEach((slide, index) => {
+        if (slide.classList.contains('active')) activeIndex = index;
+        slide.classList.remove('active');
+    });
+    activeIndex += direction;
+    if (activeIndex < 0) activeIndex = slides.length - 1;
+    if (activeIndex >= slides.length) activeIndex = 0;
+    slides[activeIndex].classList.add('active');
+    counter.textContent = (activeIndex + 1) + ' / ' + slides.length;
+}
+
 function triggerUnlock(event, action) {
     if(event) event.preventDefault();
     
@@ -420,6 +530,69 @@ document.getElementById("final-score").innerText = "You scored " + score + " out
 }
 
 window.onload = restartGame;
+
+const allMalwareScenarios = [
+{ title: "Free Movie Player Codec", desc: "You are trying to watch a movie online. The site says you need to download a special 'VideoCodec.exe' to play the file.", isMalware: true, explanation: "Fake codecs are a classic Trojan trick. You think you are downloading a media player, but you are actually installing malware. Stick to trusted players like VLC." },
+{ title: "App Store Download", desc: "You download the official Netflix app directly from the Apple App Store or Google Play Store.", isMalware: false, explanation: "Downloading apps from official, verified marketplaces is one of the safest ways to get software, as they run security checks on the apps." },
+{ title: "Suspicious Email Attachment", desc: "You receive an email about an unpaid invoice. It has an attachment named 'Invoice_Overdue.pdf.exe'.", isMalware: true, explanation: "Look closely at the extension! The '.exe' at the very end means this is a highly dangerous executable file trying to disguise itself as a harmless PDF document." },
+{ title: "Cracked Software", desc: "You don't want to pay for Photoshop, so you download a 'cracked' version for free from a file-sharing forum.", isMalware: true, explanation: "Pirated and cracked software are among the most common sources of malware. Attackers intentionally upload infected versions of popular premium software." },
+{ title: "Windows System Update", desc: "You get a notification in your Windows Settings menu that a security patch is available to download and install.", isMalware: false, explanation: "Official updates initiated from your computer's built-in Settings menu are safe and crucial for keeping your computer protected against new malware." },
+{ title: "Found USB Drive", desc: "You find a USB flash drive in the parking lot and plug it into your laptop to see who it belongs to.", isMalware: true, explanation: "Never plug in random USB drives! Attackers often drop infected drives in public places hoping someone will plug them in out of curiosity, which can auto-install malware." },
+{ title: "Scary Pop-up Warning", desc: "While browsing, a loud red pop-up appears: 'WARNING! Your computer is infected with 5 viruses! Click here to scan and remove them.'", isMalware: true, explanation: "This is 'Scareware'. Your computer isn't actually infected yet, but clicking their 'scan' or 'remove' button will download the actual malware." },
+{ title: "Browser Extension", desc: "You install an extension called 'Free Game Currency Generator' that asks for permission to 'read and change all your data on all websites'.", isMalware: true, explanation: "Extensions with broad permissions can act as spyware, tracking everything you do online. 'Free currency' tools are almost always scams to steal your accounts." },
+{ title: "Trusted Developer Website", desc: "You need a chat app, so you type 'discord.com' into your browser and download it directly from the official developer site.", isMalware: false, explanation: "Typing the URL yourself and downloading directly from the source is the best way to ensure you are getting the real software." },
+{ title: "Macro in Office Document", desc: "You download an unsolicited Excel file. When you open it, a banner asks you to 'Enable Macros' to view the document's content.", isMalware: true, explanation: "Macros are tiny programs embedded in Office files. Malicious macros are heavily used by attackers to secretly download malware (like ransomware) onto your machine." }
+];
+
+let sessionMalware = [];
+let currentMalware = 0;
+let malwareScore = 0;
+
+function restartMalwareGame() {
+let shuffled = [...allMalwareScenarios].sort(() => 0.5 - Math.random());
+sessionMalware = shuffled.slice(0, 5);
+currentMalware = 0;
+malwareScore = 0;
+document.getElementById("malware-game-over").classList.remove("show");
+document.getElementById("malware-display").style.display = "block";
+loadMalware();
+}
+
+function loadMalware() {
+document.getElementById("malware-feedback").classList.remove("show", "correct", "wrong");
+document.getElementById("malware-controls").style.display = "flex";
+
+const scenario = sessionMalware[currentMalware];
+document.getElementById("malware-scenario-title").innerText = scenario.title;
+document.getElementById("malware-scenario-desc").innerText = scenario.desc;
+}
+
+function checkMalwareAnswer(guessIsMalware) {
+const scenario = sessionMalware[currentMalware];
+const isCorrect = guessIsMalware === scenario.isMalware;
+if (isCorrect) malwareScore++;
+
+const feedbackEl = document.getElementById("malware-feedback");
+document.getElementById("malware-controls").style.display = "none";
+
+feedbackEl.classList.add("show", isCorrect ? "correct" : "wrong");
+document.getElementById("malware-feedback-title").innerText = isCorrect ? "Correct!" : "Incorrect!";
+document.getElementById("malware-feedback-text").innerHTML = scenario.explanation;
+}
+
+function nextMalware() {
+currentMalware++;
+if (currentMalware < sessionMalware.length) {
+loadMalware();
+} else {
+document.getElementById("malware-feedback").classList.remove("show");
+document.getElementById("malware-display").style.display = "none";
+document.getElementById("malware-game-over").classList.add("show");
+document.getElementById("malware-final-score").innerText = "You scored " + malwareScore + " out of " + sessionMalware.length + "!";
+}
+}
+
+window.addEventListener('load', restartMalwareGame);
 
 document.getElementById("analyze-btn").addEventListener("click", () => {
 const text = document.getElementById("email-text").value.toLowerCase();

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>MitM Attack | CyberShield</title>
+<title>Safe Browsing | CyberShield</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Inter,sans-serif;}
@@ -24,6 +24,21 @@ nav .logo{font-family:Orbitron;color:#00f7ff;font-size: 2em;font-weight: bold;te
 .info-box h3{color:#00f7ff;margin-top:25px;margin-bottom:10px;font-family:Orbitron;font-size:1.4rem;}
 .cta{margin-top:40px;padding:14px 28px;background:#00f7ff;color:black;border-radius:30px;text-decoration:none;font-weight:bold;transition:all 0.3s ease;display: inline-block; border:none; cursor:pointer; font-size:1rem;}
 .cta:hover{transform:translateY(-3px) scale(1.05);box-shadow:0 10px 20px rgba(0, 247, 255, 0.4);}
+
+.game-container{background:rgba(13, 24, 41, 0.7);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:30px;border-radius:20px;border: 1px solid rgba(0, 247, 255, 0.2);margin-top:40px;box-shadow:0 8px 32px 0 rgba(0,0,0,0.5);opacity:0;animation:slideUp 0.8s ease-out 0.2s forwards;}
+.scenario-client{background:rgba(2, 4, 10, 0.6);color:#e2e8f0;text-align:center;border-radius:12px;border:1px dashed rgba(0, 247, 255, 0.5);box-shadow:inset 0 0 20px rgba(0,0,0,0.5);overflow:hidden;margin-bottom:20px;padding:30px;min-height:120px;display:flex;flex-direction:column;justify-content:center;}
+.scenario-title{font-size:1.5rem;font-family:monospace;color:#ef4444;word-break:break-all;}
+.game-controls{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;}
+.btn-game{padding:12px 24px;border-radius:8px;font-weight:bold;cursor:pointer;border:none;font-size:1.1rem;transition:transform 0.2s;}
+.btn-game:hover{transform:scale(1.05);}
+.btn-safe{background:#22c55e;color:white;}
+.btn-danger{background:#ef4444;color:white;}
+.feedback{margin-top:20px;padding:20px;border-radius:10px;display:none;text-align:left;}
+.feedback.show{display:block;}
+.feedback h3{font-size:1.5rem;margin-bottom:10px;font-family:Orbitron;}
+.feedback p{font-size:1.1rem;line-height:1.5;margin-bottom:20px;}
+.feedback.correct{background:rgba(34, 197, 94, 0.2);border:1px solid #22c55e;}
+.feedback.wrong{background:rgba(239, 68, 68, 0.2);border:1px solid #ef4444;}
 
 .slideshow-container { background: rgba(2, 4, 10, 0.6); border: 1px solid rgba(0, 247, 255, 0.3); border-radius: 12px; padding: 25px; margin-bottom: 25px; position: relative; box-shadow: inset 0 0 20px rgba(0,0,0,0.5); }
 .slide { display: none; min-height: 80px; animation: slideFade 0.4s ease-out; font-size: 1.1rem; line-height: 1.6; }
@@ -50,8 +65,6 @@ footer a:hover{text-decoration:underline;}
 .keyhole {width: 14px; height: 14px; background: rgba(2, 4, 10, 0.8); border-radius: 50%; position: relative;}
 .keyhole::after {content: ''; position: absolute; top: 8px; left: 4px;width: 6px; height: 14px; background: rgba(2, 4, 10, 0.8); border-radius: 2px;}
 @keyframes zoomInUnlock {0% { transform: scale(1) translateZ(0); opacity: 1; }20% { transform: scale(1.1) translateZ(0); opacity: 1; }100% { transform: scale(4) translateZ(0); opacity: 0; }}
-.video-container {position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 20px; border: 1px solid rgba(0, 247, 255, 0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.5); margin-top: 40px; opacity: 0; animation: slideUp 0.8s ease-out 0.2s forwards;}
-.video-container iframe {position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;}
 @media (max-width: 768px) {nav {flex-direction: column;gap: 15px;padding: 15px;} .nav-links {margin-left: 0; width: 100%; justify-content: center; gap: 5px;} .nav-links a {padding: 6px 10px; font-size: 0.8rem;} .nav-arrow { font-size: 0.9rem; }}
 </style>
 </head>
@@ -66,7 +79,7 @@ footer a:hover{text-decoration:underline;}
     <span class="nav-arrow">➔</span>
     <a href="phishing.html" onclick="triggerUnlock(event, this.href)">Phishing & Malware</a>
     <span class="nav-arrow">➔</span>
-    <a href="safe-browsing.html" onclick="triggerUnlock(event, this.href)">Safe Browsing</a>
+    <a href="safe-browsing.html" onclick="triggerUnlock(event, this.href)" class="active">Safe Browsing</a>
     <span class="nav-arrow">➔</span>
     <a href="threats.html" onclick="triggerUnlock(event, this.href)">Threats</a>
     <span class="nav-arrow">➔</span>
@@ -77,36 +90,62 @@ footer a:hover{text-decoration:underline;}
 </nav>
 
 <section class="section">
+  <div style="text-align: left; margin-bottom: 20px;">
+    <a href="learn.html" onclick="triggerUnlock(event, () => { if(window.history.length > 1 && document.referrer.includes(window.location.host)) history.back(); else window.location.href = 'learn.html'; }); return false;" class="cta" style="margin-top: 0;">&larr; Go Back</a>
+  </div>
 
-<div style="text-align: left; margin-bottom: 20px;">
-<a href="threats.html" onclick="triggerUnlock(event, () => { if(window.history.length > 1 && document.referrer.includes(window.location.host)) history.back(); else window.location.href = 'threats.html'; }); return false;" class="cta" style="margin-top: 0;">&larr; Go Back</a>
-</div>
+  <h2>Safe Browsing</h2>
 
-<h2>Man-in-the-Middle (MitM)</h2>
+  <div class="info-box">
+    <p>Browsing the web can be like walking through a bustling city. While most places are safe, there are dark alleys and pickpockets you need to avoid. Safe browsing habits protect you from drive-by downloads, tracking, and malicious sites.</p>
+    
+    <h3 style="margin-top:20px;">Key Practices:</h3>
+    <div class="slideshow-container">
+      <div class="slide active"><strong>Look for HTTPS:</strong> Always ensure the websites you visit use 'HTTPS' (look for the padlock icon next to the URL), which means your connection to the site is encrypted.</div>
+      <div class="slide"><strong>Avoid Public Wi-Fi for Sensitive Tasks:</strong> Public networks at cafes or airports can be easily intercepted. Use a Virtual Private Network (VPN) if you must check your bank account or send private info.</div>
+      <div class="slide"><strong>Use Ad Blockers:</strong> Malicious ads (malvertising) can install malware on your computer without you even clicking them. An ad blocker significantly reduces this risk.</div>
+      <div class="slide"><strong>Keep Your Browser Updated:</strong> Software updates patch vulnerabilities that hackers use to exploit your system. Never ignore an update prompt.</div>
+      <div class="slide-controls">
+        <button class="slide-btn" onclick="changeSlide(this, -1)">&#10094; Prev</button>
+        <span class="slide-counter">1 / 4</span>
+        <button class="slide-btn" onclick="changeSlide(this, 1)">Next &#10095;</button>
+      </div>
+    </div>
+    
+    <div style="text-align: center; margin-top: 40px;">
+      <a href="threats.html" onclick="triggerUnlock(event, this.href)" class="cta" style="margin-top: 0;">Next Step: Threats ➔</a>
+    </div>
+  </div>
+</section>
 
-<div class="info-box">
-<p>A Man-in-the-Middle (MitM) attack occurs when a perpetrator secretly intercepts and relays communications between two parties who believe they are communicating directly with each other. The attacker acts as a hidden eavesdropper.</p>
+<section class="section" style="padding-top:0;">
+  <div class="game-container">
+    <h3 style="font-family:Orbitron; color:#00f7ff; margin-bottom: 10px; font-size: 1.8rem;">URL Inspector Game</h3>
+    <p style="margin-bottom: 20px; opacity: 0.8;">Analyze the URL below and click a button to decide if it is safe to enter your personal information.</p>
 
-<h3 style="margin-top:20px;">How it happens:</h3>
-<div class="slideshow-container">
-<div class="slide active"><strong>Unsecured Public Wi-Fi:</strong> Attackers set up rogue Wi-Fi hotspots (e.g., "Free Airport Wi-Fi"). When you connect, all your unencrypted data passes through their machine.</div>
-<div class="slide"><strong>ARP Spoofing:</strong> On a local network, an attacker tricks your device into believing their computer is the network router, allowing them to route your traffic through themselves.</div>
-<div class="slide"><strong>Session Hijacking:</strong> The attacker intercepts the session cookie between your browser and a website, allowing them to impersonate your logged-in session.</div>
-<div class="slide-controls">
-<button class="slide-btn" onclick="changeSlide(this, -1)">&#10094; Prev</button>
-<span class="slide-counter">1 / 3</span>
-<button class="slide-btn" onclick="changeSlide(this, 1)">Next &#10095;</button>
-</div>
-</div>
+    <div id="scenario-display">
+      <div class="scenario-client">
+        <div class="scenario-title" id="url-text"></div>
+      </div>
 
-<h3>Solutions:</h3>
-<p>Always ensure you are using encrypted connections (look for "HTTPS" and the padlock icon in your browser). Avoid accessing sensitive accounts like banking on public Wi-Fi networks unless you are using a reputable Virtual Private Network (VPN), which encrypts your data tunnel. Enabling Multi-Factor Authentication (MFA) also ensures that even if a password is intercepted, the attacker cannot log in to your account.</p>
-</div>
+      <div class="game-controls" id="game-controls">
+        <button class="btn-game btn-safe" onclick="checkAnswer(false)">Looks Safe</button>
+        <button class="btn-game btn-danger" onclick="checkAnswer(true)">Risky / Fake</button>
+      </div>
+    </div>
 
-<div class="video-container">
-<iframe src="https://www.youtube.com/embed/83LOa-dYi_A" title="What is a Man in the Middle Attack?" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
+    <div id="feedback" class="feedback">
+      <h3 id="feedback-title"></h3>
+      <p id="feedback-text"></p>
+      <button class="cta" onclick="nextScenario()" style="margin-top: 0;">Next URL</button>
+    </div>
 
+    <div id="game-over" class="feedback" style="text-align:center;">
+      <h3 style="color:#00f7ff; border:none; background:transparent;">Inspection Complete!</h3>
+      <p id="final-score" style="font-size: 1.3rem; font-weight: bold;"></p>
+      <button class="cta" onclick="restartGame()" style="margin-top: 0;">Play Again</button>
+    </div>
+  </div>
 </section>
 
 <footer>
@@ -142,81 +181,71 @@ function changeSlide(btn, direction) {
 
 function triggerUnlock(event, action) {
     if(event) event.preventDefault();
-    let isFirstTime = true;
-    let storageKey = '';
-    if (typeof action === 'string') {
-        try {
-            storageKey = 'visited_' + new URL(action, document.baseURI).pathname;
-            if (sessionStorage.getItem(storageKey)) {
-                isFirstTime = false;
-            }
-        } catch (e) {}
-    } else {
-        isFirstTime = false;
-    }
     const overlay = document.getElementById('unlock-overlay');
-    if(isFirstTime && overlay) {
-        if (storageKey) sessionStorage.setItem(storageKey, 'true');
+    if(overlay) {
         overlay.classList.add('active');
-        setTimeout(() => { 
-            if (typeof action === 'function') action();
-            else window.location.href = action; 
-        }, 450);
+        setTimeout(() => { window.location.href = action; }, 450);
     } else {
-        if (typeof action === 'function') action();
-        else window.location.href = action;
+        window.location.href = action;
     }
 }
 window.addEventListener('pageshow', () => {
     const overlay = document.getElementById('unlock-overlay');
     if(overlay) overlay.classList.remove('active');
 });
-document.addEventListener('DOMContentLoaded', () => {
-    sessionStorage.setItem('visited_' + window.location.pathname, 'true');
-    document.querySelectorAll('a').forEach(link => {
-        if (!link.hasAttribute('onclick') && link.getAttribute('href') && link.getAttribute('href') !== '#') {
-            link.addEventListener('click', (e) => triggerUnlock(e, link.href));
-        }
-    });
-});
 
-// Dystopian Nav Effect
-(function() {
-    const nav = document.querySelector('nav');
-    nav.style.overflow = 'hidden';
-    const canvas = document.createElement('canvas');
-    canvas.style.position = 'absolute';
-    canvas.style.top = '0';
-    canvas.style.left = '0';
-    canvas.style.width = '100%';
-    canvas.style.height = '100%';
-    canvas.style.opacity = '0.3';
-    canvas.style.pointerEvents = 'none';
-    nav.insertBefore(canvas, nav.firstChild);
-    const ctx = canvas.getContext('2d');
-    let width, height, drops;
-    function resize() {
-        width = canvas.width = nav.offsetWidth;
-        height = canvas.height = nav.offsetHeight;
-        drops = Array(Math.floor(width / 15)).fill(1);
+const allUrls = [
+  { url: "http://www.chase.com/login", isRisky: true, explanation: "It uses HTTP instead of HTTPS. Information sent over HTTP is not encrypted and can be intercepted by hackers." },
+  { url: "https://www.netflix-account-update.com", isRisky: true, explanation: "Hyphenated domains mimicking big brands are often phishing sites. The real domain is simply netflix.com." },
+  { url: "https://www.amazon.com/your-account", isRisky: false, explanation: "This is safe. It uses an encrypted HTTPS connection and the correct official amazon.com domain." },
+  { url: "https://www.paypaI.com/signin", isRisky: true, explanation: "Look closely! The 'l' in paypal is actually a capital 'I'. This is a common homoglyph attack designed to trick your eyes." },
+  { url: "https://github.com/login", isRisky: false, explanation: "A valid, secure URL using HTTPS and the correct domain." }
+];
+
+let sessionScenarios = [];
+let currentScenario = 0;
+let score = 0;
+
+function restartGame() {
+    let shuffled = [...allUrls].sort(() => 0.5 - Math.random());
+    sessionScenarios = shuffled.slice(0, 5);
+    currentScenario = 0;
+    score = 0;
+    document.getElementById("game-over").classList.remove("show");
+    document.getElementById("scenario-display").style.display = "block";
+    loadScenario();
+}
+
+function loadScenario() {
+    document.getElementById("feedback").classList.remove("show", "correct", "wrong");
+    document.getElementById("game-controls").style.display = "flex";
+    document.getElementById("url-text").innerText = sessionScenarios[currentScenario].url;
+}
+
+function checkAnswer(guessIsRisky) {
+    const scenario = sessionScenarios[currentScenario];
+    const isCorrect = guessIsRisky === scenario.isRisky;
+    if (isCorrect) score++;
+    
+    document.getElementById("game-controls").style.display = "none";
+    const feedbackEl = document.getElementById("feedback");
+    feedbackEl.classList.add("show", isCorrect ? "correct" : "wrong");
+    document.getElementById("feedback-title").innerText = isCorrect ? "Spot On!" : "You missed that one!";
+    document.getElementById("feedback-text").innerHTML = scenario.explanation;
+}
+
+function nextScenario() {
+    currentScenario++;
+    if (currentScenario < sessionScenarios.length) {
+        loadScenario();
+    } else {
+        document.getElementById("feedback").classList.remove("show");
+        document.getElementById("scenario-display").style.display = "none";
+        document.getElementById("game-over").classList.add("show");
+        document.getElementById("final-score").innerText = "You scored " + score + " out of " + sessionScenarios.length + "!";
     }
-    window.addEventListener('resize', resize);
-    resize();
-    const chars = '0101010101X&#@%CYBER'.split('');
-    function draw() {
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
-        ctx.fillRect(0, 0, width, height);
-        ctx.fillStyle = '#00f7ff';
-        ctx.font = '12px Orbitron';
-        for(let i = 0; i < drops.length; i++) {
-            const text = chars[Math.floor(Math.random() * chars.length)];
-            ctx.fillText(text, i * 15, drops[i] * 15);
-            if(drops[i] * 15 > height && Math.random() > 0.9) drops[i] = 0;
-            drops[i]++;
-        }
-    }
-    setInterval(draw, 50);
-})();
+}
+window.addEventListener('load', restartGame);
 </script>
 </body>
 </html>

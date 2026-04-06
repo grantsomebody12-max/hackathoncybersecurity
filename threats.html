@@ -8,6 +8,8 @@
 body{background: linear-gradient(270deg,#02040a,#071a2f,#02040a);background-size:600% 600%;animation:bg 12s ease infinite;color:white;padding-top: 80px;}
 @keyframes bg{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 @keyframes slideUp{0%{opacity:0;transform:translateY(40px);}100%{opacity:1;transform:translateY(0);}}
+@keyframes slideUpText { 0% { opacity: 0; transform: translateY(15px); } 100% { opacity: 1; transform: translateY(0); } }
+h1, h2, h3, p, li, .quiz-question, .quiz-option, .scenario-title, .scenario-desc, .b-title, .level-title, .progress { opacity: 0; animation: slideUpText 0.8s ease-out forwards; }
 nav{display:flex;justify-content:space-between;align-items:center;padding:18px 40px;background:rgba(0,0,0,0.6);backdrop-filter:blur(8px);position:fixed;width:100%;top:0;z-index:100;}
 nav .logo{
   font-family:Orbitron;
@@ -17,13 +19,17 @@ nav .logo{
   text-decoration: none;
   margin-left: 0;
 }
-.nav-links { display: flex; flex: 1; justify-content: space-evenly; margin-left: 40px; flex-wrap: wrap; gap: 10px; }
-.nav-links a { color:white; padding:10px 20px; border-radius:25px; background:rgba(0, 247, 255, 0.15); border:1px solid rgba(0, 247, 255, 0.4); text-decoration:none; font-weight:600; transition:all 0.3s ease; text-align: center; }
+.nav-links { display: flex; flex: 1; justify-content: center; align-items: center; margin-left: 40px; flex-wrap: wrap; gap: 10px; }
+.nav-links a { color:white; padding:8px 16px; border-radius:20px; background:rgba(0, 247, 255, 0.1); border:1px solid rgba(0, 247, 255, 0.3); text-decoration:none; font-weight:600; transition:all 0.3s ease; text-align: center; font-size: 0.95rem; }
 .nav-links a:hover { color:#00f7ff; background:rgba(0, 247, 255, 0.3); border-color:#00f7ff; transform:translateY(-2px); box-shadow:0 4px 15px rgba(0, 247, 255, 0.3); }
+.nav-links a.active { background:rgba(0, 247, 255, 0.4); border-color:#00f7ff; box-shadow:0 0 10px rgba(0, 247, 255, 0.5); color:#fff; text-shadow: 0 0 5px rgba(255,255,255,0.5); }
+.nav-arrow { color: rgba(0, 247, 255, 0.5); font-size: 1.2rem; animation: pulseArrow 2s infinite; }
+@keyframes pulseArrow { 0%, 100% { transform: translateX(0); opacity: 0.5; } 50% { transform: translateX(3px); opacity: 1; } }
 .section{padding:40px;max-width:1200px;margin: 0 auto;}
-.section h2{font-size:2.5rem;margin-bottom:40px;text-align:center;font-family:Orbitron;color:#00f7ff;}
+.section h2{font-size:2.5rem;margin-bottom:10px;text-align:center;font-family:Orbitron;color:#00f7ff;}
+.instruction-text{text-align:center;opacity:0.8;margin-bottom:40px;font-size:1.1rem;animation:slideUpText 0.8s ease-out forwards;}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:30px;}
-.card{background:rgba(255,255,255,0.05);padding:30px;border-radius:20px;border: 1px solid rgba(255,255,255,0.1);opacity:0;animation:slideUp 0.8s ease-out forwards;cursor:pointer;transition:all 0.3s ease;}
+.card{background:rgba(13, 24, 41, 0.7);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:30px;border-radius:20px;border: 1px solid rgba(0, 247, 255, 0.2);box-shadow:0 8px 32px 0 rgba(0,0,0,0.5);opacity:0;animation:slideUp 0.8s ease-out forwards;cursor:pointer;transition:all 0.3s ease;}
 .card:hover{
 transform:translateY(-8px);
 box-shadow:0 0 20px #00f7ff;
@@ -37,6 +43,10 @@ border-color: #00f7ff;
 .card:nth-child(2){animation-delay:0.3s;}
 .card:nth-child(3){animation-delay:0.5s;}
 .card:nth-child(4){animation-delay:0.7s;}
+
+footer{text-align:center;padding:20px;margin-top:40px;border-top:1px solid rgba(0, 247, 255, 0.2);opacity:0.8;font-size:0.9rem;}
+footer a{color:#00f7ff;text-decoration:none;font-weight:600;}
+footer a:hover{text-decoration:underline;}
 
 /* Lock Animation */
 #unlock-overlay {
@@ -107,8 +117,9 @@ border-color: #00f7ff;
     gap: 10px;
     padding: 15px;
   }
-  .nav-links { margin-left: 0; width: 100%; justify-content: center; gap: 10px; }
-  .nav-links a { padding: 8px 12px; font-size: 0.9rem; }
+  .nav-links { margin-left: 0; width: 100%; justify-content: center; gap: 5px; }
+  .nav-links a { padding: 6px 10px; font-size: 0.8rem; }
+  .nav-arrow { font-size: 0.9rem; }
 }
 </style>
 </head>
@@ -117,16 +128,25 @@ border-color: #00f7ff;
 <nav>
   <a href="index.html" class="logo" onclick="triggerUnlock(event, this.href)">CyberShield</a>
   <div class="nav-links">
-    <a href="phishing.html" onclick="triggerUnlock(event, this.href)">Phishing</a>
-    <a href="malware.html" onclick="triggerUnlock(event, this.href)">Malware</a>
+    <a href="intro.html" onclick="triggerUnlock(event, this.href)">Intro</a>
+    <span class="nav-arrow">➔</span>
     <a href="passwords.html" onclick="triggerUnlock(event, this.href)">Passwords</a>
-    <a href="game.html" onclick="triggerUnlock(event, this.href)">Skill Tree</a>
-    <a href="threats.html" onclick="triggerUnlock(event, this.href)">Threats</a>
+    <span class="nav-arrow">➔</span>
+    <a href="phishing.html" onclick="triggerUnlock(event, this.href)">Phishing & Malware</a>
+    <span class="nav-arrow">➔</span>
+    <a href="safe-browsing.html" onclick="triggerUnlock(event, this.href)">Safe Browsing</a>
+    <span class="nav-arrow">➔</span>
+    <a href="threats.html" onclick="triggerUnlock(event, this.href)" class="active">Threats</a>
+    <span class="nav-arrow">➔</span>
+    <a href="scenarios.html" onclick="triggerUnlock(event, this.href)">Scenarios</a>
+    <span class="nav-arrow">➔</span>
+    <a href="game.html" onclick="triggerUnlock(event, this.href)">🎮 Skill Tree</a>
   </div>
 </nav>
 
 <section class="section">
 <h2>Threat Database</h2>
+<p class="instruction-text">Click on the threat cards below to learn more about each attack.</p>
 
 <div class="cards">
 
@@ -161,6 +181,11 @@ border-color: #00f7ff;
 </div>
 
 </section>
+
+<footer>
+  <p>&copy; 2026 by TripleTech. All rights reserved.</p>
+  <p>Contact us: <a href="mailto:tripletechcybersecurity@gmail.com">tripletechcybersecurity@gmail.com</a></p>
+</footer>
 
 <div id="unlock-overlay">
   <div class="lock-icon">

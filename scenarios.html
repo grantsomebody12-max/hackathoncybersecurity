@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Real-World Scenarios | CyberShield</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,sans-serif;}
+body{background: linear-gradient(270deg,#02040a,#071a2f,#02040a);background-size:600% 600%;animation:bg 12s ease infinite;color:white;padding-top: 80px;}
+@keyframes bg{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+@keyframes slideUp{0%{opacity:0;transform:translateY(40px);}100%{opacity:1;transform:translateY(0);}}
+@keyframes slideUpText { 0% { opacity: 0; transform: translateY(15px); } 100% { opacity: 1; transform: translateY(0); } }
+h1, h2, h3, p, li, .quiz-question, .quiz-option, .scenario-title, .scenario-desc, .b-title, .level-title, .progress { opacity: 0; animation: slideUpText 0.8s ease-out forwards; }
+nav{display:flex;justify-content:space-between;align-items:center;padding:18px 40px;background:rgba(0,0,0,0.6);backdrop-filter:blur(8px);position:fixed;width:100%;top:0;z-index:100;}
+nav .logo{font-family:Orbitron;color:#00f7ff;font-size: 2em;font-weight: bold;text-decoration: none;margin-left: 0;}
+.nav-links { display: flex; flex: 1; justify-content: center; align-items: center; margin-left: 40px; flex-wrap: wrap; gap: 10px; }
+.nav-links a { color:white; padding:8px 16px; border-radius:20px; background:rgba(0, 247, 255, 0.1); border:1px solid rgba(0, 247, 255, 0.3); text-decoration:none; font-weight:600; transition:all 0.3s ease; text-align: center; font-size: 0.95rem; }
+.nav-links a:hover { color:#00f7ff; background:rgba(0, 247, 255, 0.3); border-color:#00f7ff; transform:translateY(-2px); box-shadow:0 4px 15px rgba(0, 247, 255, 0.3); }
+.nav-links a.active { background:rgba(0, 247, 255, 0.4); border-color:#00f7ff; box-shadow:0 0 10px rgba(0, 247, 255, 0.5); color:#fff; text-shadow: 0 0 5px rgba(255,255,255,0.5); }
+.nav-arrow { color: rgba(0, 247, 255, 0.5); font-size: 1.2rem; animation: pulseArrow 2s infinite; }
+@keyframes pulseArrow { 0%, 100% { transform: translateX(0); opacity: 0.5; } 50% { transform: translateX(3px); opacity: 1; } }
+.section{padding:40px;width:80%;max-width:1400px;margin: 0 auto;text-align:center;}
+.section h2{font-size:2.5rem;margin-bottom:20px;font-family:Orbitron;color:#00f7ff;}
+.info-box{background:rgba(13, 24, 41, 0.7);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:40px;border-radius:20px;border: 1px solid rgba(0, 247, 255, 0.2);text-align:left;line-height:1.8;font-size:1.1rem;box-shadow:0 8px 32px 0 rgba(0,0,0,0.5);opacity:0;animation:slideUp 0.8s ease-out forwards;}
+.info-box h3{color:#00f7ff;margin-top:25px;margin-bottom:10px;font-family:Orbitron;font-size:1.4rem;}
+.cta{margin-top:40px;padding:14px 28px;background:#00f7ff;color:black;border-radius:30px;text-decoration:none;font-weight:bold;transition:all 0.3s ease;display: inline-block; border:none; cursor:pointer; font-size:1rem;}
+.cta:hover{transform:translateY(-3px) scale(1.05);box-shadow:0 10px 20px rgba(0, 247, 255, 0.4);}
+
+.game-container{background:rgba(13, 24, 41, 0.7);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:30px;border-radius:20px;border: 1px solid rgba(0, 247, 255, 0.2);margin-top:40px;box-shadow:0 8px 32px 0 rgba(0,0,0,0.5);opacity:0;animation:slideUp 0.8s ease-out 0.2s forwards;text-align:left;}
+.scenario-client{background:rgba(2, 4, 10, 0.6);border:1px solid rgba(0, 247, 255, 0.3);box-shadow:inset 0 0 20px rgba(0,0,0,0.5);color:#e2e8f0;text-align:left;border-radius:12px;overflow:hidden;margin-bottom:20px;padding:30px;min-height:150px;}
+.scenario-title{font-size:1.5rem;font-family:Orbitron;color:#00f7ff;margin-bottom:15px;}
+.scenario-desc{font-size:1.1rem;line-height:1.6;margin-bottom:20px;}
+.game-controls{display:flex;flex-direction:column;gap:15px;}
+.btn-opt{background:rgba(255,255,255,0.05);backdrop-filter:blur(5px);border:1px solid rgba(0, 247, 255, 0.3);color:white;padding:15px 20px;border-radius:8px;font-size:1.1rem;cursor:pointer;transition:all 0.2s;text-align:left;}
+.btn-opt:hover{background:rgba(0, 247, 255, 0.2);border-color:#00f7ff;transform:translateX(5px);}
+.feedback{margin-top:20px;padding:20px;border-radius:10px;display:none;}
+.feedback.show{display:block;}
+.feedback h3{font-size:1.5rem;margin-bottom:10px;font-family:Orbitron;}
+.feedback p{font-size:1.1rem;line-height:1.5;margin-bottom:20px;}
+.feedback.correct{background:rgba(34, 197, 94, 0.2);border:1px solid #22c55e;}
+.feedback.wrong{background:rgba(239, 68, 68, 0.2);border:1px solid #ef4444;}
+
+footer{text-align:center;padding:20px;margin-top:40px;border-top:1px solid rgba(0, 247, 255, 0.2);opacity:0.8;font-size:0.9rem;}
+footer a{color:#00f7ff;text-decoration:none;font-weight:600;}
+footer a:hover{text-decoration:underline;}
+
+/* Lock Animation */
+#unlock-overlay {position: fixed; top: 0; left: 0; width: 100%; height: 100%;background: rgba(2, 4, 10, 0.9); backdrop-filter: blur(10px);z-index: 99999; display: flex; justify-content: center; align-items: center;opacity: 0; pointer-events: none; transition: opacity 0.15s ease;}
+#unlock-overlay.active { opacity: 1; pointer-events: all; }
+.lock-icon {position: relative; width: 80px; height: 110px; display: flex; flex-direction: column; align-items: center;transform: scale(0.8) translateZ(0); transition: transform 0.15s;will-change: transform, opacity;}
+#unlock-overlay.active .lock-icon {animation: zoomInUnlock 0.4s cubic-bezier(0.25, 1, 0.5, 1) forwards;animation-delay: 0.15s;}
+.shackle {width: 46px; height: 40px;border: 8px solid rgba(255,255,255,0.2); border-bottom: none;border-top-left-radius: 25px; border-top-right-radius: 25px;position: relative; top: 8px; z-index: 1;transform-origin: right bottom;transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);will-change: transform;}
+#unlock-overlay.active .shackle {transform: translateY(-15px) rotate(-20deg) translateZ(0);border-color: #00f7ff;filter: drop-shadow(0 0 10px #00f7ff);}
+.lock-body {width: 80px; height: 60px;background: rgba(255,255,255,0.1); border-radius: 10px;position: relative; z-index: 2;display: flex; justify-content: center; align-items: center;transition: all 0.2s ease;border: 2px solid rgba(255,255,255,0.2);will-change: background, border-color, box-shadow;}
+#unlock-overlay.active .lock-body {background: #00f7ff;border-color: #00f7ff;box-shadow: 0 0 20px #00f7ff, 0 0 40px rgba(0, 247, 255, 0.6), inset 0 0 15px rgba(255,255,255,0.8);}
+.keyhole {width: 14px; height: 14px; background: rgba(2, 4, 10, 0.8); border-radius: 50%; position: relative;}
+.keyhole::after {content: ''; position: absolute; top: 8px; left: 4px;width: 6px; height: 14px; background: rgba(2, 4, 10, 0.8); border-radius: 2px;}
+@keyframes zoomInUnlock {0% { transform: scale(1) translateZ(0); opacity: 1; }20% { transform: scale(1.1) translateZ(0); opacity: 1; }100% { transform: scale(4) translateZ(0); opacity: 0; }}
+@media (max-width: 768px) {nav {flex-direction: column;gap: 15px;padding: 15px;} .nav-links {margin-left: 0; width: 100%; justify-content: center; gap: 5px;} .nav-links a {padding: 6px 10px; font-size: 0.8rem;} .nav-arrow { font-size: 0.9rem; }}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo" onclick="triggerUnlock(event, this.href)">CyberShield</a>
+  <div class="nav-links">
+    <a href="intro.html" onclick="triggerUnlock(event, this.href)">Intro</a>
+    <span class="nav-arrow">➔</span>
+    <a href="passwords.html" onclick="triggerUnlock(event, this.href)">Passwords</a>
+    <span class="nav-arrow">➔</span>
+    <a href="phishing.html" onclick="triggerUnlock(event, this.href)">Phishing & Malware</a>
+    <span class="nav-arrow">➔</span>
+    <a href="safe-browsing.html" onclick="triggerUnlock(event, this.href)">Safe Browsing</a>
+    <span class="nav-arrow">➔</span>
+    <a href="threats.html" onclick="triggerUnlock(event, this.href)">Threats</a>
+    <span class="nav-arrow">➔</span>
+    <a href="scenarios.html" onclick="triggerUnlock(event, this.href)" class="active">Scenarios</a>
+    <span class="nav-arrow">➔</span>
+    <a href="game.html" onclick="triggerUnlock(event, this.href)">🎮 Skill Tree</a>
+  </div>
+</nav>
+
+<section class="section">
+  <div style="text-align: left; margin-bottom: 20px;">
+    <a href="learn.html" onclick="triggerUnlock(event, () => { if(window.history.length > 1 && document.referrer.includes(window.location.host)) history.back(); else window.location.href = 'learn.html'; }); return false;" class="cta" style="margin-top: 0;">&larr; Go Back</a>
+  </div>
+
+  <h2>Real-World Scenarios</h2>
+
+  <div class="info-box">
+    <p>Let's put your knowledge to the test. Cyber attacks happen every day to real people and companies. Read the interactive scenarios below and click the buttons to choose how you would defend yourself.</p>
+  </div>
+
+  <div class="game-container">
+    <div id="scenario-display">
+      <div class="scenario-client">
+        <div class="scenario-title" id="scenario-title"></div>
+        <div class="scenario-desc" id="scenario-desc"></div>
+      </div>
+      <div class="game-controls" id="game-controls">
+        <button class="btn-opt" id="btn-opt1" onclick="checkAnswer(1)"></button>
+        <button class="btn-opt" id="btn-opt2" onclick="checkAnswer(2)"></button>
+      </div>
+    </div>
+    <div id="feedback" class="feedback">
+      <h3 id="feedback-title"></h3>
+      <p id="feedback-text"></p>
+      <button class="cta" onclick="nextScenario()" style="margin-top: 0;">Next Scenario</button>
+    </div>
+    <div id="game-over" class="feedback" style="text-align:center;">
+      <h3 style="color:#00f7ff; border:none; background:transparent;">Simulation Complete!</h3>
+      <p id="final-score" style="font-size: 1.3rem; font-weight: bold;"></p>
+      <button class="cta" onclick="restartGame()" style="margin-top: 0;">Play Again</button>
+    </div>
+    
+    <div style="text-align: center; margin-top: 40px;">
+      <a href="game.html" onclick="triggerUnlock(event, this.href)" class="cta" style="margin-top: 0;">Final Step: Skill Tree ➔</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2026 by TripleTech. All rights reserved.</p>
+  <p>Contact us: <a href="mailto:tripletechcybersecurity@gmail.com">tripletechcybersecurity@gmail.com</a></p>
+</footer>
+
+<div id="unlock-overlay">
+  <div class="lock-icon">
+    <div class="shackle"></div>
+    <div class="lock-body">
+      <div class="keyhole"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+function triggerUnlock(event, action) {
+    if(event) event.preventDefault();
+    const overlay = document.getElementById('unlock-overlay');
+    if(overlay) {
+        overlay.classList.add('active');
+        setTimeout(() => { window.location.href = action; }, 450);
+    } else {
+        window.location.href = action;
+    }
+}
+window.addEventListener('pageshow', () => {
+    const overlay = document.getElementById('unlock-overlay');
+    if(overlay) overlay.classList.remove('active');
+});
+
+const allSituations = [
+  {
+    title: "The Coffee Shop",
+    desc: "You're at a local cafe and need to check your bank balance. You see an open Wi-Fi network called 'Free Cafe Wi-Fi'.",
+    opt1: "Connect to the free Wi-Fi and quickly check your balance.",
+    opt2: "Use your cellular data or a VPN to check your balance.",
+    correctOpt: 2,
+    explanation: "Using unsecured public networks makes you vulnerable to Man-in-the-Middle attacks where hackers can easily intercept your login credentials."
+  },
+  {
+    title: "The Urgent CEO Email",
+    desc: "You get an email from your CEO: 'I am in a meeting, I need you to buy 5 $100 Apple gift cards for a client presentation. Email me the codes ASAP.'",
+    opt1: "Buy the gift cards immediately to impress the boss.",
+    opt2: "Call or message the CEO via a different method to verify the request.",
+    correctOpt: 2,
+    explanation: "This is a classic Spear Phishing attack. Legitimate companies will almost never ask employees to buy untraceable gift cards for business purposes."
+  },
+  {
+    title: "The Reused Password",
+    desc: "You need to create an account for a new, relatively unknown fitness app.",
+    opt1: "Use the same strong password you use for your email and banking.",
+    opt2: "Use a completely unique password generated by a Password Manager.",
+    correctOpt: 2,
+    explanation: "If the fitness app suffers a data breach, hackers will use 'Credential Stuffing' to automatically try your password on high-value sites like PayPal and your email."
+  },
+  {
+    title: "The Suspicious Attachment",
+    desc: "You receive an email from a vendor you occasionally work with. The subject is 'Unpaid Invoice' and it has a file attached: 'Invoice.pdf.exe'.",
+    opt1: "Download and open the file to see what invoice you missed.",
+    opt2: "Delete the email and contact the vendor directly if you are concerned.",
+    correctOpt: 2,
+    explanation: "The '.exe' extension indicates it's an executable program, not a document. Opening it would likely install malware or ransomware directly onto your machine."
+  },
+  {
+    title: "The IT Support Call",
+    desc: "Someone calls you claiming to be from Microsoft Support, saying your computer is sending out virus alerts and they need remote access to fix it.",
+    opt1: "Hang up the phone immediately.",
+    opt2: "Follow their instructions to let them secure your computer.",
+    correctOpt: 1,
+    explanation: "Tech companies like Microsoft will never proactively call you to fix your computer. This is a scam to install malware and steal your information."
+  }
+];
+
+let sessionSituations = [];
+let currentSituation = 0;
+let score = 0;
+
+function restartGame() {
+    sessionSituations = [...allSituations];
+    currentSituation = 0;
+    score = 0;
+    document.getElementById("game-over").classList.remove("show");
+    document.getElementById("scenario-display").style.display = "block";
+    loadScenario();
+}
+
+function loadScenario() {
+    document.getElementById("feedback").classList.remove("show", "correct", "wrong");
+    document.getElementById("game-controls").style.display = "flex";
+    
+    const sit = sessionSituations[currentSituation];
+    document.getElementById("scenario-title").innerText = sit.title;
+    document.getElementById("scenario-desc").innerText = sit.desc;
+    document.getElementById("btn-opt1").innerText = "A) " + sit.opt1;
+    document.getElementById("btn-opt2").innerText = "B) " + sit.opt2;
+}
+
+function checkAnswer(chosenOpt) {
+    const sit = sessionSituations[currentSituation];
+    const isCorrect = chosenOpt === sit.correctOpt;
+    if (isCorrect) score++;
+    
+    document.getElementById("game-controls").style.display = "none";
+    const feedbackEl = document.getElementById("feedback");
+    feedbackEl.classList.add("show", isCorrect ? "correct" : "wrong");
+    document.getElementById("feedback-title").innerText = isCorrect ? "Good Choice!" : "Dangerous Move!";
+    document.getElementById("feedback-text").innerHTML = sit.explanation;
+}
+
+function nextScenario() {
+    currentSituation++;
+    if (currentSituation < sessionSituations.length) {
+        loadScenario();
+    } else {
+        document.getElementById("feedback").classList.remove("show");
+        document.getElementById("scenario-display").style.display = "none";
+        document.getElementById("game-over").classList.add("show");
+        document.getElementById("final-score").innerText = "You survived " + score + " out of " + sessionSituations.length + " scenarios!";
+    }
+}
+window.addEventListener('load', restartGame);
+</script>
+</body>
+</html>
